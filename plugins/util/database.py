@@ -21,16 +21,16 @@ def init(db):
 
 def field_exists(db,table,matchfield,matchvalue):
     init(db)
-    exists = db.execute("SELECT EXISTS(SELECT 1 FROM {} WHERE {}='{}' LIMIT 1);".format(table,matchfield,matchvalue.encode('utf8'))).fetchone()[0]
+    exists = db.execute("SELECT EXISTS(SELECT 1 FROM {} WHERE {}='{}' LIMIT 1);".format(table,matchfield,matchvalue)).fetchone()[0]
     if exists: return True
     else: return False
 
 def get(db,table,field,matchfield,matchvalue):
     init(db)
-    matchvalue = matchvalue.encode('utf-8').lower()
+    matchvalue = matchvalue.lower()
     try:
         result = db.execute("SELECT {} FROM {} WHERE {}='{}';".format(field,table,matchfield,matchvalue)).fetchone()
-        if result: return result[0].encode('utf-8')
+        if result: return result[0]
         else: return False
     except:
         log.log("***ERROR: SELECT {} FROM {} WHERE {}='{}';".format(field,table,matchfield,matchvalue))
