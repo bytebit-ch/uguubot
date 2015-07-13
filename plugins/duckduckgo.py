@@ -46,7 +46,7 @@ def query(query, useragent='python-duckduckgo '+str(__version__), safesearch=Fal
 
     request = urllib.request.Request(url, headers={'User-Agent': useragent})
     response = urllib.request.urlopen(request)
-    json = j.loads(response.read())
+    json = j.loads(response.read().decode("utf-8"))
     # print json
     response.close()
 
