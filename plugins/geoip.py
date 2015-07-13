@@ -8,7 +8,7 @@ geo = pygeoip.GeoIP(os.path.abspath("./plugins/data/geoip.dat"))
 
 
 # load region database
-with open("./plugins/data/geoip_regions.json", "rb") as f:
+with open("./plugins/data/geoip_regions.json", "r") as f:
     regions = json.loads(f.read())
 
 
