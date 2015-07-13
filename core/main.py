@@ -1,6 +1,7 @@
 import _thread
 import traceback
 import re
+import queue
 
 _thread.stack_size(1024 * 512)  # reduce vm size
 
@@ -88,7 +89,7 @@ class Handler(object):
     '''Runs plugins in their own threads (ensures order)'''
     def __init__(self, func):
         self.func = func
-        self.input_queue = Queue.Queue()
+        self.input_queue = queue.Queue()
         _thread.start_new_thread(self.start, ())
 
     def start(self):
