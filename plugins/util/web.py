@@ -1,9 +1,9 @@
 """ web.py - handy functions for web services """
 
-import http
-import urlnorm
+from . import http
+from . import urlnorm
 import json
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import yql
 
 short_url = "http://is.gd/create.php"
@@ -25,7 +25,7 @@ class ShortenError(Exception):
 def isgd(url):
     """ shortens a URL with the is.gd API """
     url = urlnorm.normalize(url.encode('utf-8'), assume_scheme='http')
-    params = urllib.urlencode({'format': 'json', 'url': url})
+    params = urllib.parse.urlencode({'format': 'json', 'url': url})
     request = http.get_json("http://is.gd/create.php?%s" % params)
 
     if "errorcode" in request:

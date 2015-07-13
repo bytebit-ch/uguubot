@@ -1,11 +1,11 @@
-import http
-import json, urllib2, sys
+from . import http
+import json, urllib.request, urllib.error, urllib.parse, sys
 
 
 def haste(data):
     URL = "http://paste.dmptr.com"
-    request = urllib2.Request(URL + "/documents", data)
-    response = urllib2.urlopen(request)
+    request = urllib.request.Request(URL + "/documents", data)
+    response = urllib.request.urlopen(request)
     return("%s/%s" % (URL, json.loads(response.read())['key']))
 
 
