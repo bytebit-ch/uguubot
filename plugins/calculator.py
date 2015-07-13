@@ -121,5 +121,5 @@ def c(inp):
         except:
             val = val
     # return u"{} = {}".format(inp, val)
-    return u"{}".format(val)
+    return "{}".format(val)
 

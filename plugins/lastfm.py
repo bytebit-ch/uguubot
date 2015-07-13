@@ -51,7 +51,7 @@ def lastfm(inp, nick='', db=None, bot=None, notice=None):
         status = 'last listened to'
         time_listened = datetime.fromtimestamp(int(track["date"]["uts"]))
         time_since = timesince.timesince(time_listened)
-        ending = u' ({} ago)'.format(time_since)
+        ending = ' ({} ago)'.format(time_since)
     else:
         return "error: could not parse track listing"
 
@@ -59,9 +59,9 @@ def lastfm(inp, nick='', db=None, bot=None, notice=None):
     album = track["album"]["#text"]
     artist = track["artist"]["#text"]
 
-    out = u'{} {} "{}"'.format(user, status, title)
-    if artist: out += u" by \x02{}\x0f".format(artist)
-    if album: out += u" from the album \x02{}\x0f".format(album)
+    out = '{} {} "{}"'.format(user, status, title)
+    if artist: out += " by \x02{}\x0f".format(artist)
+    if album: out += " from the album \x02{}\x0f".format(album)
     out += ending
     if user and save: database.set(db,'users','lastfm',user,'nick',nick)
 

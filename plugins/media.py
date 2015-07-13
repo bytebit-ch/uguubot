@@ -4,9 +4,9 @@ from util import hook, http
 import re
 
 import datetime
-from urllib2 import URLError
+from urllib.error import URLError
 from zipfile import ZipFile
-from cStringIO import StringIO
+from io import StringIO
 
 from lxml import etree
 from util import hook, http, web
@@ -35,7 +35,7 @@ def get_series_info(seriesname):
         return res
     series_id = ""
     try: series_id = query.xpath('//id/text()')
-    except: print "Failed"
+    except: print("Failed")
 
 
     if not series_id:
@@ -90,7 +90,7 @@ def get_episode_info(episode):
     first_aired = episode.findtext("FirstAired")
 
     try:
-        airdate = datetime.date(*map(int, first_aired.split('-')))
+        airdate = datetime.date(*list(map(int, first_aired.split('-'))))
     except (ValueError, TypeError):
         return None
 
@@ -270,4 +270,4 @@ def rottentomatoes(inp,bot=None):
     fresh = critics_score * review_count / 100
     rotten = review_count - fresh
 
-    return u"%s - critics: \x02%d%%\x02 (%d\u2191/%d\u2193) audience: \x02%d%%\x02 - %s" % (title, critics_score, fresh, rotten, audience_score, url)
+    return "%s - critics: \x02%d%%\x02 (%d\u2191/%d\u2193) audience: \x02%d%%\x02 - %s" % (title, critics_score, fresh, rotten, audience_score, url)

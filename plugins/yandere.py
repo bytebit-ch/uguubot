@@ -23,7 +23,7 @@ def get_yandere_tags(inp):
     imageid = image["id"].replace('p','')
     title = image.find('img')['title']
     src = image.find('a', {'class': 'directlink'})["href"]
-    return u"\x034NSFW\x03: \x02({})\x02 {}: {}".format(imageid, title, web.isgd(http.unquote(src)))
+    return "\x034NSFW\x03: \x02({})\x02 {}: {}".format(imageid, title, web.isgd(http.unquote(src)))
 
 #do an initial refresh of the cache
 refresh_cache()
@@ -35,6 +35,6 @@ def yandere(inp, reply=None):
     if inp: return get_yandere_tags(inp)
 
     id, title, image = yandere_cache.pop()
-    reply(u'\x034NSFW\x03: \x02(%s)\x02 %s: %s' % (id, title[:75], web.isgd(image)))
+    reply('\x034NSFW\x03: \x02(%s)\x02 %s: %s' % (id, title[:75], web.isgd(image)))
     if len(yandere_cache) < 3:
         refresh_cache()

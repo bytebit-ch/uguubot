@@ -14,7 +14,7 @@ def db_init(db):
                 "primary key(user_to, message))")
     db.commit()
     db_ready=True
-    print "Tell Database Ready"
+    print("Tell Database Ready")
 
     return db
 

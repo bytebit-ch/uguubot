@@ -101,18 +101,18 @@ def sieve_suite(bot, input, func, kind, args):
         # check for disabled modules
         if fn and re.search(r"\b{}\b".format(fn.group(1).lower().strip()), disabled_commands):
 	    if user.is_globaladmin(input.mask, chan, bot):
-		print("[{}]: {} is disabled.".format(input.chan,fn.group(1)))
+		print(("[{}]: {} is disabled.".format(input.chan,fn.group(1))))
             return None
         # check for disabled commands
         if kind == "command" and re.search(r"\b{}\b".format(input.trigger.lower().strip()), disabled_commands):
 	    if user.is_globaladmin(input.mask, chan, bot):
 		input.notice("[{}]: {} is disabled.".format(input.chan,input.trigger))
-	    print("[{}]: {} is disabled.".format(input.chan,input.trigger))
+	    print(("[{}]: {} is disabled.".format(input.chan,input.trigger)))
             return None
         # check for disabled regex
         if kind == "regex" and re.search(r"\b{}\b".format(func.__name__.lower().strip()), disabled_commands):
 	    if user.is_globaladmin(input.mask, chan, bot):
-		print("[{}]: {} is disabled.".format(input.chan,func.__name__))
+		print(("[{}]: {} is disabled.".format(input.chan,func.__name__)))
             return None
 
     # print fn.group(1)
@@ -135,11 +135,11 @@ def sieve_suite(bot, input, func, kind, args):
     acl = bot.config.get('acls', {}).get(func.__name__)
     if acl:
         if 'deny-except' in acl:
-            allowed_channels = map(unicode.lower, acl['deny-except'])
+            allowed_channels = list(map(str.lower, acl['deny-except']))
             if input.chan.lower() not in allowed_channels:
                 return None
         if 'allow-except' in acl:
-            denied_channels = map(unicode.lower, acl['allow-except'])
+            denied_channels = list(map(str.lower, acl['allow-except']))
             if input.chan.lower() in denied_channels:
                 return None
 
@@ -164,7 +164,7 @@ def sieve_suite(bot, input, func, kind, args):
         if badwordlist:
             for badword in badwordlist.split(' '):
                 if len(badword) > 2 and badword.lower() is not chan.lower() and badword.lower().strip() in input.msg.lower(): 
-                    input.conn.send(u"KICK {} {} :{}".format(input.chan, input.nick, 'Used bad word: {}'.format(badword)))
+                    input.conn.send("KICK {} {} :{}".format(input.chan, input.nick, 'Used bad word: {}'.format(badword)))
                     return
 
 

@@ -34,6 +34,6 @@ def distance(inp):
         distance_km = get_distance(orig_latlong, dest_latlong)
         distance_mile = distance_km * 0.621371
 
-        return u"The distance from \x02%s\x02 to \x02%s\x02 is: %0.2f miles / %0.2f km" % (orig_location, dest_location, distance_mile, distance_km)
+        return "The distance from \x02%s\x02 to \x02%s\x02 is: %0.2f miles / %0.2f km" % (orig_location, dest_location, distance_mile, distance_km)
     except:
         return "Cannot get distance from {} to {}".format(orig,dest)

@@ -57,7 +57,7 @@ def version(inp, nick=None, chan=None, conn=None, notice=None):
     if 'uguubot' in user: return '[VERSION] uguubot: SkyNet 0.99 kawaii disrespecting humanitys freedom edition'
     # ctcpcache_timer
     ctcpcache.append(("VERSION",user, chan))
-    conn.send(u"PRIVMSG {} :\x01VERSION\x01".format(user))
+    conn.send("PRIVMSG {} :\x01VERSION\x01".format(user))
     return
 
 @hook.command('pingme', autohelp=False)
@@ -75,7 +75,7 @@ def ping(inp, nick=None, chan=None, conn=None, notice=None, reply=None):
         curtime = time.time()
         ctcpcache.append(("PING",user, chan))
         # ctcpcache_timer
-        conn.send(u"PRIVMSG {} :\x01PING {}\x01".format(user, str(curtime)))
+        conn.send("PRIVMSG {} :\x01PING {}\x01".format(user, str(curtime)))
     return
 
 import subprocess
@@ -129,7 +129,7 @@ def ctcp_event(paraml, input=None, bot=None, conn=None):
                 if re.search(kind, inpkind, re.I) and re.search(nick, inpnick, re.I): #.replace('[','\[').replace(']','\]')
                     ctcpcache.remove(x)
                     if kind == "VERSION":
-                        conn.send(u"PRIVMSG {} :[{}] {}: {}".format(channel, kind, nick, inpresult))
+                        conn.send("PRIVMSG {} :[{}] {}: {}".format(channel, kind, nick, inpresult))
                         return
                     elif kind == "PING":
                         
@@ -138,9 +138,9 @@ def ctcp_event(paraml, input=None, bot=None, conn=None):
                         if senttime: 
                             diff = (curtime - float(senttime.group(0)))
                             if diff <= 1:    
-                                conn.send(u"PRIVMSG {} :[{}] {}: {} ms".format(channel, kind, nick, diff*1000))
+                                conn.send("PRIVMSG {} :[{}] {}: {} ms".format(channel, kind, nick, diff*1000))
                             else:
-                                conn.send(u"PRIVMSG {} :[{}] {}: {} seconds".format(channel, kind, nick, diff))
+                                conn.send("PRIVMSG {} :[{}] {}: {} seconds".format(channel, kind, nick, diff))
                             return
                         else:
                             #conn.send(u"PRIVMSG {} :[{}] {}: Infinite. Enable CTCP Responses you baka.".format(channel, kind, nick))

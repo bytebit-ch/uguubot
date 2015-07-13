@@ -1,6 +1,6 @@
 from util import hook, http
-import urllib
-import urllib2
+import urllib.request, urllib.parse, urllib.error
+import urllib.request, urllib.error, urllib.parse
 import json as j
 import sys
 
@@ -41,11 +41,11 @@ def query(query, useragent='python-duckduckgo '+str(__version__), safesearch=Fal
         'd': meanings,
         }
     params.update(kwargs)
-    encparams = urllib.urlencode(params)
+    encparams = urllib.parse.urlencode(params)
     url = 'http://api.duckduckgo.com/?' + encparams
 
-    request = urllib2.Request(url, headers={'User-Agent': useragent})
-    response = urllib2.urlopen(request)
+    request = urllib.request.Request(url, headers={'User-Agent': useragent})
+    response = urllib.request.urlopen(request)
     json = j.loads(response.read())
     # print json
     response.close()

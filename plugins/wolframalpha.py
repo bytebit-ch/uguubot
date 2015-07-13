@@ -23,7 +23,7 @@ import random
 __author__ = 'derik66@gmail.com'
 __version__ = '1.1-devel'
 
-import urllib2
+import urllib.request, urllib.error, urllib.parse
 from xml.dom import minidom
 import simplejson as json
 
@@ -50,7 +50,7 @@ class WolframAlphaEngine:
   def PerformQuery(self, query=''):
 
     try:
-      result = urllib2.urlopen(self.server, query)
+      result = urllib.request.urlopen(self.server, query)
       result = result.read()
     except:
       result = '<error>urllib2.urlopen ' + self.server + ' ' + query + '</error>'

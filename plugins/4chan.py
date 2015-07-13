@@ -16,12 +16,12 @@ def get_json_data(url, sleep_time=0):
     try:
         response = requests.get(url)
         if response.status_code == 404:
-            print ("url {} 404".format(url))
+            print(("url {} 404".format(url)))
             return None
         json_data = json.loads(response.text.encode())
         return json_data
     except Exception as e:
-        print ("url: {}".format(url))
+        print(("url: {}".format(url)))
         print (e)
         raise
 
@@ -41,7 +41,7 @@ def get_title(url):
         post = soup.find('div', {'class': 'opContainer'})
     
     comment = http.process_text(post.find('blockquote', {'class': 'postMessage'}).renderContents().strip())
-    return u"{} - {}".format(url, comment) #
+    return "{} - {}".format(url, comment) #
 
 
 def sprunge(data):
@@ -62,7 +62,7 @@ def search_thread(results_deque, thread_num, search_specifics):
     if thread_json is not None:
         re_search = None
         for post in thread_json["posts"]:
-            user_text = "".join([post[s] for s in search_specifics["sections"] if s in post.keys()])
+            user_text = "".join([post[s] for s in search_specifics["sections"] if s in list(post.keys())])
             re_search = re.search(search_specifics["string"], user_text, re.UNICODE + re.IGNORECASE)
             if re_search is not None:
                 results_deque.append("{0}#p{1}".format(thread_num, post["no"]))
@@ -72,7 +72,7 @@ def search_page(results_deque, page, search_specifics):
     """Will be run by the threading module. Searches all the 
     4chan threads on a page and adds matching results to synchronised queue"""
     for thread in page['threads']:
-        user_text = "".join([thread[s] for s in search_specifics["sections"] if s in thread.keys()])
+        user_text = "".join([thread[s] for s in search_specifics["sections"] if s in list(thread.keys())])
         if re.search(search_specifics["string"], user_text, re.UNICODE + re.IGNORECASE) is not None:
             results_deque.append(thread["no"])
 

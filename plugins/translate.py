@@ -1,12 +1,12 @@
 from util import hook, http
 import re
-import urllib2
+import urllib.request, urllib.error, urllib.parse
 
-kataLetters = range(0x30A0, 0x30FF)
-hiraLetters = range(0x3040, 0x309F)
-kataPunctuation = range(0x31F0,0x31FF)
+kataLetters = list(range(0x30A0, 0x30FF))
+hiraLetters = list(range(0x3040, 0x309F))
+kataPunctuation = list(range(0x31F0,0x31FF))
 all_letters = kataLetters+kataPunctuation+hiraLetters
-japanese_characters = ''.join([unichr(aLetter) for aLetter in all_letters])
+japanese_characters = ''.join([chr(aLetter) for aLetter in all_letters])
 japanese_characters = (r'.*((['+japanese_characters+'])).*', re.UNICODE)	
 
 
@@ -21,8 +21,8 @@ def google_translate(to_translate, to_language="auto", from_language="auto"):
     before_trans = 'class="t0">'
     link = "http://translate.google.com/m?hl=%s&sl=%s&q=%s&ie=UTF-8&oe=UTF-8" % (to_language, from_language, to_translate)
 
-    request = urllib2.Request(link, headers=agents)
-    page = urllib2.urlopen(request).read().decode('utf-8')
+    request = urllib.request.Request(link, headers=agents)
+    page = urllib.request.urlopen(request).read().decode('utf-8')
     result = page[page.find(before_trans)+len(before_trans):]
     result = result.split("<")[0]
     return '%s' % (result)
@@ -301,9 +301,9 @@ katakana={
 
 romanizeText = ''
 
-hiraganaReversed = dict((v,k) for k,v in hiragana.iteritems())
-katakanaReversed = dict((v,k) for k,v in katakana.iteritems())
-alphanumericsReversed = dict((v,k) for k,v in alphanumerics.iteritems())
+hiraganaReversed = dict((v,k) for k,v in hiragana.items())
+katakanaReversed = dict((v,k) for k,v in katakana.items())
+alphanumericsReversed = dict((v,k) for k,v in alphanumerics.items())
 dictionaries = [hiragana, katakana, alphanumerics]
 
 def romanizer(romanizeMe):
@@ -314,7 +314,7 @@ def romanizer(romanizeMe):
             try:
                 value = dictToUse[char]
                 romanizeMe = romanizeMe.replace(char, value)
-            except KeyError, e:
+            except KeyError as e:
                 continue
     # romanizeMe = romanizeMe
     return romanizeMe #.decode('utf-8','ignore')

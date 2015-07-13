@@ -12,7 +12,7 @@ def refresh_cache(inp):
     search = inp.replace(' ','+').replace('explicit','rating:explicit').replace('nsfw','rating:explicit').replace('safe','rating:safe').replace('sfw','rating:safe')
     # score:>100
     #print 'http://gelbooru.com/index.php?page=dapi&s=post&q=index&limit=20&tags={}'.format(search)
-    soup = http.get_soup(u'http://gelbooru.com/index.php?page=dapi&s=post&q=index&limit=20&tags={}'.format(search))
+    soup = http.get_soup('http://gelbooru.com/index.php?page=dapi&s=post&q=index&limit=20&tags={}'.format(search))
     posts = soup.find_all('post')
 
     while num < len(posts):
@@ -44,7 +44,7 @@ def gelbooru(inp, reply=None):
     elif rating is 'q': rating = "\x02\x037Questionable\x03\x02"
     elif rating is 's': rating = "\x02\x033Safe\x03\x02"
 
-    return u'\x02[{}]\x02 Score: \x02{}\x02 - Rating: {} - {}'.format(id, score, rating, url)
+    return '\x02[{}]\x02 Score: \x02{}\x02 - Rating: {} - {}'.format(id, score, rating, url)
     # return u'\x02[{}]\x02 Score: \x02{}\x02 - Rating: {} - {} - {}'.format(id, score, rating, url, tags[:75].strip())
 
 
@@ -53,7 +53,7 @@ gelbooru_list_re = (r'(.+gelbooru.com/.+list&tags.+)', re.I)
 @hook.regex(*gelbooru_list_re)
 def gelbooru_list_url(match):
     soup = http.get_soup(match.group(1))
-    return u'{}'.format(soup.find('title').text)
+    return '{}'.format(soup.find('title').text)
 
 
 gelbooru_re = (r'(?:gelbooru.com.*?id=)([-_a-zA-Z0-9]+)', re.I)
@@ -68,7 +68,7 @@ def gelbooru_url(match):
     elif rating is 'q': rating = "\x02\x037Questionable\x03\x02"
     elif rating is 's': rating = "\x02\x033Safe\x03\x02"
 
-    return u'\x02[{}]\x02 Score: \x02{}\x02 - Rating: {} - {} - {}'.format(id, score, rating, url, tags[:75].strip())
+    return '\x02[{}]\x02 Score: \x02{}\x02 - Rating: {} - {} - {}'.format(id, score, rating, url, tags[:75].strip())
 
 
 # http://gelbooru.com/index.php?page=post&s=list&tags=%3D_%3D

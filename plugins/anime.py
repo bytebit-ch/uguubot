@@ -117,7 +117,7 @@ def anime(inp, notice=None):
 @hook.command
 def animetake(inp):
     "animetake <list> | <get [query]> - searches animetake for the latest updates"
-    error = u'not so lucky today..'
+    error = 'not so lucky today..'
     try:
         inp_array = inp.split(' ')
         command = inp_array[0]
@@ -155,21 +155,21 @@ def animetake(inp):
 def nyaa(inp):
     "nyaa <query> - NYAA Search"
     search_url = 'http://nyaa.eu/?page=search&cats=1_37&filter=0&term=%s' % (inp.replace(' ','+'))
-    return u'%s' % (search_url)
+    return '%s' % (search_url)
 
 
 @hook.command
 def sn(inp):
     "sukebei nyaa <query> - sukebei NYAA Search"
     search_url = 'http://sukebei.nyaa.se/?page=search&filter=0&term=%s' % (inp.replace(' ','+'))
-    return u'%s' % (search_url)
+    return '%s' % (search_url)
 
 
 @hook.command
 def vndb(inp):
     "vndb <query> - Visual Novel Search"
     search_url = 'http://vndb.org/v/all?sq=%s' % (inp.replace(' ','+'))
-    return u'%s' % (search_url)
+    return '%s' % (search_url)
 
 
 @hook.command
@@ -179,9 +179,9 @@ def manga(inp):
     results = http.get_html(search_url)
     try:
         result = results.xpath("//tbody//strong/a/@href")[0]
-        return u'%s' % (result)
+        return '%s' % (result)
     except IndexError:
-        return u'No matches found.'
+        return 'No matches found.'
 
 
 @hook.command

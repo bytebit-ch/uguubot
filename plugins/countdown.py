@@ -43,7 +43,7 @@ def countdown(inp, bot=None, nick=None, conn=None, chan=None, notice=None):
     except: pass
 
     if len(inp) > 6:
-        send(conn,chan,u'Countdown Started! Waiting for %s.' % ', '.join(countdown_nicks))
+        send(conn,chan,'Countdown Started! Waiting for %s.' % ', '.join(countdown_nicks))
         while countdown_nicks:
             time.sleep(1)
             wait_count = int(wait_count) + 1
@@ -57,11 +57,11 @@ def countdown(inp, bot=None, nick=None, conn=None, chan=None, notice=None):
 
 
     for cur in range(1, count):
-     send(conn,chan,u'*** %s ***' % (count - cur))
+     send(conn,chan,'*** %s ***' % (count - cur))
      time.sleep(1)
     else:
      set_countdown_to_false()
-     return u'*** GO ***'
+     return '*** GO ***'
 
 
 @hook.command(autohelp=False) #, adminonly=True
@@ -73,4 +73,4 @@ def ready(inp, bot=None, nick=None,chan=None,conn=None):
     except: pass
     if nicks_size_start > len(countdown_nicks):
         if len(countdown_nicks) > 0:
-            send(conn,chan,u'Waiting for: %s' % ', '.join(countdown_nicks))
+            send(conn,chan,'Waiting for: %s' % ', '.join(countdown_nicks))

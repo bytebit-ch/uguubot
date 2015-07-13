@@ -1,5 +1,5 @@
 from util import hook, http, urlnorm
-import urllib, urllib2
+import urllib.request, urllib.parse, urllib.error, urllib.request, urllib.error, urllib.parse
 import re
 from bs4 import BeautifulSoup
 
@@ -21,9 +21,9 @@ def convert(inp,conn=None,chan=None):
     conv_left = None
     conv_right = None
     result = None
-    url = "http://www.google.com/search?q=convert+%s&num=100&hl=en&start=0" % (urllib.quote_plus(inp))
-    request = urllib2.Request(url, None, headers)
-    page = urllib2.urlopen(request).read()
+    url = "http://www.google.com/search?q=convert+%s&num=100&hl=en&start=0" % (urllib.parse.quote_plus(inp))
+    request = urllib.request.Request(url, None, headers)
+    page = urllib.request.urlopen(request).read()
     soup = BeautifulSoup(page)
     #soup = soup.find('div', attrs={'id': re.compile('ires')})
     is_currency = soup.find('li', attrs={'class': re.compile('currency')})
@@ -46,7 +46,7 @@ def convert(inp,conn=None,chan=None):
 
     try:
       result = left_value + " " + left_unit + "s = " + right_value + " " + right_unit + "s"
-    except StandardError:
+    except Exception:
       pass
 
     if result:

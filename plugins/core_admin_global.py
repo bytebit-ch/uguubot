@@ -11,9 +11,9 @@ import subprocess
 def gadmins(inp, notice=None, bot=None):
     "admins -- Lists bot's global admins."
     if bot.config["admins"]:
-        notice(u"Admins are: %s." % ", ".join(bot.config["admins"]))
+        notice("Admins are: %s." % ", ".join(bot.config["admins"]))
     else:
-        notice(u"There are no users with global admin powers.")
+        notice("There are no users with global admin powers.")
     return
 
 
@@ -29,9 +29,9 @@ def gadmin(inp, notice=None, bot=None, config=None, db=None):
         for target in targets:
             target = user.get_hostmask(target,db)
             if target in bot.config["admins"]:
-                notice(u"%s is already a global admin." % target)
+                notice("%s is already a global admin." % target)
             else:
-                notice(u"%s is now a global admin." % target)
+                notice("%s is now a global admin." % target)
                 bot.config["admins"].append(target)
                 bot.config["admins"].sort()
                 json.dump(bot.config, open('config', 'w'), sort_keys=True, indent=2)
@@ -39,12 +39,12 @@ def gadmin(inp, notice=None, bot=None, config=None, db=None):
     elif 'del' in command:
         for target in targets:
             if target in bot.config["admins"]:
-                notice(u"%s is no longer a global admin." % target)
+                notice("%s is no longer a global admin." % target)
                 bot.config["admins"].remove(target)
                 bot.config["admins"].sort()
                 json.dump(bot.config, open('config', 'w'), sort_keys=True, indent=2)
             else:
-                notice(u"%s is not a global admin." % target)
+                notice("%s is not a global admin." % target)
         return
 
 ################################
@@ -54,9 +54,9 @@ def gadmin(inp, notice=None, bot=None, config=None, db=None):
 def gignored(inp, notice=None, bot=None, chan=None, db=None):
     """ignored [channel]-- Lists ignored channels/nicks/hosts."""    
     if bot.config["ignored"]:
-        notice(u"Global ignores are: %s." % ", ".join(bot.config["ignored"]))
+        notice("Global ignores are: %s." % ", ".join(bot.config["ignored"]))
     else:
-        notice(u"There are no global ignores.")
+        notice("There are no global ignores.")
     return
 
 
@@ -68,15 +68,15 @@ def gignore(inp, notice=None, bot=None, chan=None, db=None):
     for target in targets:  
         target = user.get_hostmask(target,db)
         if (user.is_globaladmin(target,db,bot)):
-            notice(u"[Global]: {} is an admin and cannot be ignored.".format(inp))
+            notice("[Global]: {} is an admin and cannot be ignored.".format(inp))
         else:
             if ignorelist and target in ignorelist:
-                notice(u"[Global]: {} is already ignored.".format(target))
+                notice("[Global]: {} is already ignored.".format(target))
             else:
                 bot.config["ignored"].append(target)
                 bot.config["ignored"].sort()
                 json.dump(bot.config, open('config', 'w'), sort_keys=True, indent=2)
-                notice(u"[Global]: {} has been ignored.".format(target))
+                notice("[Global]: {} has been ignored.".format(target))
     return
     #         if ignorelist and target in ignorelist:
     #             notice(u"[{}]: {} is already ignored.".format(chan, target))
@@ -99,9 +99,9 @@ def gunignore(inp, notice=None, bot=None, chan=None, db=None):
             bot.config["ignored"].remove(target)
             bot.config["ignored"].sort()
             json.dump(bot.config, open('config', 'w'), sort_keys=True, indent=2)
-            notice(u"[Global]: {} has been unignored.".format(target))
+            notice("[Global]: {} has been unignored.".format(target))
         else:
-            notice(u"[Global]: {} is not ignored.".format(target))
+            notice("[Global]: {} is not ignored.".format(target))
     return
 
 
@@ -144,7 +144,7 @@ def join(inp, conn=None, notice=None, bot=None):
     for target in inp.split(" "):
         if not target.startswith("#"):
             target = "#{}".format(target)
-        notice(u"Attempting to join {}...".format(target))
+        notice("Attempting to join {}...".format(target))
         conn.join(target)
 
         channellist = bot.config["connections"][conn.name]["channels"]
@@ -168,12 +168,12 @@ def part(inp, conn=None, chan=None, notice=None, bot=None):
         if not target.startswith("#"):
             target = "#{}".format(target)
 	if target in conn.channels:
-	    notice(u"Attempting to leave {}...".format(target))
+	    notice("Attempting to leave {}...".format(target))
 	    conn.part(target)
 	    channellist.remove(target.lower().strip())
-	    print 'Deleted {} from channel list.'.format(target)
+	    print('Deleted {} from channel list.'.format(target))
 	else:
-	    notice(u"Not in {}!".format(target))
+	    notice("Not in {}!".format(target))
 
     json.dump(bot.config, open('config', 'w'), sort_keys=True, indent=2)
     return
@@ -188,7 +188,7 @@ def cycle(inp, conn=None, chan=None, notice=None):
         target = inp
     else:
         target = chan
-    notice(u"Attempting to cycle {}...".format(target))
+    notice("Attempting to cycle {}...".format(target))
     conn.part(target)
     conn.join(target)
     return
@@ -198,9 +198,9 @@ def cycle(inp, conn=None, chan=None, notice=None):
 def nick(inp, notice=None, conn=None):
     """nick <nick> -- Changes the bots nickname to <nick>."""
     if not re.match("^[A-Za-z0-9_|.-\]\[]*$", inp.lower()):
-        notice(u"Invalid username!")
+        notice("Invalid username!")
         return
-    notice(u"Attempting to change nick to \"{}\"...".format(inp))
+    notice("Attempting to change nick to \"{}\"...".format(inp))
     conn.set_nick(inp)
     return
 
@@ -208,7 +208,7 @@ def nick(inp, notice=None, conn=None):
 @hook.command(permissions=["botcontrol"], adminonly=True)
 def raw(inp, conn=None, notice=None):
     """raw <command> -- Sends a RAW IRC command."""
-    notice(u"Raw command sent.")
+    notice("Raw command sent.")
     conn.send(inp)
 
 
@@ -220,10 +220,10 @@ def say(inp, conn=None, chan=None):
     inp = inp.split(" ")
     if inp[0][0] == "#":
         message = " ".join(inp[1:])
-        out = u"PRIVMSG {} :{}".format(inp[0], message)
+        out = "PRIVMSG {} :{}".format(inp[0], message)
     else:
         message = " ".join(inp[0:])
-        out = u"PRIVMSG {} :{}".format(chan, message)
+        out = "PRIVMSG {} :{}".format(chan, message)
     conn.send(out)
 
 
@@ -232,7 +232,7 @@ def msg(inp, conn=None, chan=None, notice=None):
     "msg <user> <message> -- Sends a Message."
     user = inp.split()[0]
     message = inp.replace(user,'').strip()
-    out = u"PRIVMSG %s :%s" % (user, message)
+    out = "PRIVMSG %s :%s" % (user, message)
     conn.send(out)
 
 
@@ -248,13 +248,13 @@ def me(inp, conn=None, chan=None):
         for x in inp[1:]:
             message = message + x + " "
         message = message[:-1]
-        out = u"PRIVMSG {} :\x01ACTION {}\x01".format(inp[0], message)
+        out = "PRIVMSG {} :\x01ACTION {}\x01".format(inp[0], message)
     else:
         message = ""
         for x in inp[0:]:
             message = message + x + " "
         message = message[:-1]
-        out = u"PRIVMSG {} :\x01ACTION {}\x01".format(chan, message)
+        out = "PRIVMSG {} :\x01ACTION {}\x01".format(chan, message)
     conn.send(out)
      
 
@@ -273,7 +273,7 @@ def set(inp, conn=None, chan=None, db=None, notice=None):
         if 'voteban' in field or \
             'votekick' in field:
             database.set(db,'channels',field, value,'chan',chan)
-            notice(u"Set {} to {}.".format(field, value))
+            notice("Set {} to {}.".format(field, value))
             return
     elif len(inpsplit) >= 3:
         field = inp.split(" ")[0].strip()
@@ -293,10 +293,10 @@ def set(inp, conn=None, chan=None, db=None, notice=None):
                 #if type(value) is list: value = value[0]
                 if value.lower() is 'none': database.set(db,'users',field, '','nick',nick) 
                 else: database.set(db,'users',field, value,'nick',nick) 
-                notice(u"Set {} for {} to {}.".format(field, nick, value))
+                notice("Set {} for {} to {}.".format(field, nick, value))
                 return
 
-    notice(u"Could not set {}.".format(field))
+    notice("Could not set {}.".format(field))
     return
     
 

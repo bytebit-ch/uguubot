@@ -6,26 +6,26 @@ import re
 exchanges = {
     "blockchain": {
         "api_url": "https://blockchain.info/ticker",
-        "func": lambda data: u"[Blockchain] Buy: \x0307${:,.2f}\x0f - Sell: \x0307${:,.2f}\x0f".format(data["USD"]["buy"], \
+        "func": lambda data: "[Blockchain] Buy: \x0307${:,.2f}\x0f - Sell: \x0307${:,.2f}\x0f".format(data["USD"]["buy"], \
                                data["USD"]["sell"])
     },
     "mtgox": {
         "api_url": "https://mtgox.com/api/1/BTCUSD/ticker",
-        "func": lambda data: u"[MtGox] Current: \x0307{}\x0f - High: \x0307{}\x0f - Low: \x0307{}\x0f - Best Ask: \x0307{}\x0f - Volume: {}".format(data['return']['last']['display'], \
+        "func": lambda data: "[MtGox] Current: \x0307{}\x0f - High: \x0307{}\x0f - Low: \x0307{}\x0f - Best Ask: \x0307{}\x0f - Volume: {}".format(data['return']['last']['display'], \
                                data['return']['high']['display'], data['return']['low']['display'], data['return']['buy']['display'], \
                                data['return']['vol']['display'])
     },
     "coinbase":{
         "api_url": "https://coinbase.com/api/v1/prices/spot_rate",
-        "func": lambda data: u"[Coinbase] Current: \x0307${:,.2f}\x0f".format(float(data['amount']))
+        "func": lambda data: "[Coinbase] Current: \x0307${:,.2f}\x0f".format(float(data['amount']))
     },
     "bitpay": {
         "api_url": "https://bitpay.com/api/rates",
-        "func": lambda data: u"[Bitpay] Current: \x0307${:,.2f}\x0f".format(data[0]['rate'])
+        "func": lambda data: "[Bitpay] Current: \x0307${:,.2f}\x0f".format(data[0]['rate'])
     },
     "bitstamp": {
         "api_url": "https://www.bitstamp.net/api/ticker/",
-        "func": lambda data: u"[BitStamp] Current: \x0307${:,.2f}\x0f - High: \x0307${:,.2f}\x0f - Low: \x0307${:,.2f}\x0f - Volume: {:,.2f} BTC".format(float(data['last']), float(data['high']), float(data['low']), \
+        "func": lambda data: "[BitStamp] Current: \x0307${:,.2f}\x0f - High: \x0307${:,.2f}\x0f - Low: \x0307${:,.2f}\x0f - Volume: {:,.2f} BTC".format(float(data['last']), float(data['high']), float(data['low']), \
                                float(data['volume']))
     }
 }
@@ -43,7 +43,7 @@ def bitcoin(inp):
         if inp in exchanges:
             exchange = exchanges[inp]
         else:
-            return "Available exchanges: {}".format(", ".join(exchanges.keys()))
+            return "Available exchanges: {}".format(", ".join(list(exchanges.keys())))
     else:
         exchange = exchanges["bitstamp"]
 

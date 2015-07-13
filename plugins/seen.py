@@ -61,16 +61,16 @@ def correction(input,db,notice,say):
                 msg = last_message[1]
 
             if num == 0:
-                say(u"<{}> {}".format(nick, msg.replace(find, "\x02" + replace + "\x02")))
+                say("<{}> {}".format(nick, msg.replace(find, "\x02" + replace + "\x02")))
             else:
-                say(u"<{}> {}".format(nick, replacenth(msg,find,"\x02" + replace + "\x02",num)))
+                say("<{}> {}".format(nick, replacenth(msg,find,"\x02" + replace + "\x02",num)))
         #else:
             #notice(u"{} can't be found in your last message".format(find))
     else:
         if nick == input.nick:
-            notice(u"I haven't seen you say anything here yet")
+            notice("I haven't seen you say anything here yet")
         else:
-            notice(u"I haven't seen {} say anything here yet".format(nick))
+            notice("I haven't seen {} say anything here yet".format(nick))
 
 
 @hook.singlethread

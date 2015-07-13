@@ -37,7 +37,7 @@ def timefunction(inp, nick="", reply=None, db=None, notice=None):
 
     if location and save: database.set(db,'users','location',location,'nick',nick)
 
-    return formatting.output('Time', [u'{} is \x02{}\x02 [{} {}]'.format(prefix, curtime, day, date)])
+    return formatting.output('Time', ['{} is \x02{}\x02 [{} {}]'.format(prefix, curtime, day, date)])
 
 
 
@@ -75,7 +75,7 @@ def timefunction2(inp, nick="", reply=None, db=None, notice=None):
 
     if location and save: database.set(db,'users','location',location,'nick',nick)
 
-    return u'Time in {} is \x02{} {}\x02 [{}]'.format(prefix, curtime, ampm.upper(), date)
+    return 'Time in {} is \x02{} {}\x02 [{}]'.format(prefix, curtime, ampm.upper(), date)
 
 
 
@@ -105,7 +105,7 @@ def watime(inp, bot=None):
                                      16:])
         return "{} - \x02{}\x02".format(time, place)
     else:
-        return u"Could not get the time for '{}'.".format(inp)
+        return "Could not get the time for '{}'.".format(inp)
 
 
 @hook.command(autohelp=False)
@@ -120,7 +120,7 @@ def beats(inp):
                "ght representing 248/1000 of a day, just over 5 hours and 57 minute" \
                "s. There are no timezones."
     elif inp.lower() == "guide":
-        return u"1 day = 1000 .beats, 1 hour = 41.666 .beats, 1 min = 0.6944 .beats, 1 second = 0.01157 .beats"
+        return "1 day = 1000 .beats, 1 hour = 41.666 .beats, 1 min = 0.6944 .beats, 1 second = 0.01157 .beats"
 
     t = time.gmtime()
     h, m, s = t.tm_hour, t.tm_min, t.tm_sec

@@ -214,7 +214,7 @@ def horoscope(inp, db=None, notice=None, nick=None):
 
     if sign and save: database.set(db,'users','horoscope',sign,'nick',nick)
     
-    return u"\x02{}\x02 {}".format(title, horoscopetxt)
+    return "\x02{}\x02 {}".format(title, horoscopetxt)
 
 
 @hook.command(autohelp=False)

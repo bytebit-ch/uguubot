@@ -1,10 +1,10 @@
 from util import hook, http, database, urlnorm, formatting
 from bs4 import BeautifulSoup
-from urlparse import urlparse
+from urllib.parse import urlparse
 import re
 
-from urllib import FancyURLopener
-import urllib2
+from urllib.request import FancyURLopener
+import urllib.request, urllib.error, urllib.parse
 
 import gelbooru
 
@@ -107,7 +107,7 @@ def ebay_url(match,bot):
     #     print url
 
     # else:
-    print "No eBay api key set."
+    print("No eBay api key set.")
     item = http.get_html(match)
     title = item.xpath("//h1[@id='itemTitle']/text()")[0].strip()
     price = item.xpath("//span[@id='prcIsum_bidPrice']/text()")
@@ -157,16 +157,16 @@ def hentai_url(match,bot):
     loginurl = 'http://forums.e-hentai.org/index.php?act=Login&CODE=01'
     logindata = 'referer=http://forums.e-hentai.org/index.php&UserName={}&PassWord={}&CookieDate=1'.format(username,password) 
 
-    req = urllib2.Request(loginurl)
-    resp=urllib2.urlopen(req,logindata)#POST登陆
+    req = urllib.request.Request(loginurl)
+    resp=urllib.request.urlopen(req,logindata)#POST登陆
     coo=resp.info().getheader('Set-Cookie')#获得cookie串
     cooid=re.findall('ipb_member_id=(.*?);',coo)[0]
     coopw=re.findall('ipb_pass_hash=(.*?);',coo)[0]
 
     headers = {'Cookie': 'ipb_member_id='+cooid+';ipb_pass_hash='+coopw,'User-Agent':"User-Agent':'Mozilla/5.2 (compatible; MSIE 8.0; Windows NT 6.2;)"}
 
-    request = urllib2.Request(url, None, headers)
-    page = urllib2.urlopen(request).read()
+    request = urllib.request.Request(url, None, headers)
+    page = urllib.request.urlopen(request).read()
     soup = BeautifulSoup(page)
     try:
         title = soup.find('h1', {'id': 'gn'}).string
@@ -174,18 +174,18 @@ def hentai_url(match,bot):
         rating = soup.find('td', {'id': 'rating_label'}).string.replace('Average: ','')
         star_count = round(float(rating),0)
         stars=""
-        for x in xrange(0,int(star_count)):
+        for x in range(0,int(star_count)):
             stars = "{}{}".format(stars,'★')
-        for y in xrange(int(star_count),5):
+        for y in range(int(star_count),5):
             stars = "{}{}".format(stars,'☆')
 
         return '\x02{}\x02 - \x02\x034{}\x03\x02 - {}'.format(title,stars,date).decode('utf-8')
     except:
-        return u'{}'.format(soup.title.string)
+        return '{}'.format(soup.title.string)
 # amiami, hobby search and nippon yasan
 
-import urllib
-import urllib2
+import urllib.request, urllib.parse, urllib.error
+import urllib.request, urllib.error, urllib.parse
 import requests
 from lxml import html
 import md5

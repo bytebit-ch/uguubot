@@ -60,7 +60,7 @@ def search_quote(db, nick, search):
     results = []
     for quote in quotes:
         if search.lower() in quote[0].lower(): #or search.strip().lower() == 'list'
-            results.append(u'[{}/{}] <{}> {}'.format(num, len(quotes),nick, quote[0]))
+            results.append('[{}/{}] <{}> {}'.format(num, len(quotes),nick, quote[0]))
         num+=1
     return results
 

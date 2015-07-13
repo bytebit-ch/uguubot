@@ -31,7 +31,7 @@ def rss(inp, say=None):
             link = web.isgd(row["link"])
         except (web.ShortenError, http.HTTPError, http.URLError):
             link = row["link"]
-        say(u"{} - {}".format(title, link))
+        say("{} - {}".format(title, link))
 
 
 @hook.command(autohelp=False)

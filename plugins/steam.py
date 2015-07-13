@@ -15,9 +15,9 @@ def get_steam_info(url):
     desc = ": " + text.truncate_str(soup.find('div', {'class': 'game_description_snippet'}).text.strip())
 
     # the page has a ton of returns and tabs
-    details = soup.find('div', {'class': 'glance_details'}).text.strip().split(u"\n\n\r\n\t\t\t\t\t\t\t\t\t")
-    genre = " - Genre: " + details[0].replace(u"Genre: ", u"")
-    date = " - Release date: " + details[1].replace(u"Release Date: ", u"")
+    details = soup.find('div', {'class': 'glance_details'}).text.strip().split("\n\n\r\n\t\t\t\t\t\t\t\t\t")
+    genre = " - Genre: " + details[0].replace("Genre: ", "")
+    date = " - Release date: " + details[1].replace("Release Date: ", "")
     price = ""
     if not "Free to Play" in genre:
         price = " - Price: " + soup.find('div', {'class': 'game_purchase_price price'}).text.strip()
@@ -41,7 +41,7 @@ def steamsearch(inp):
     
 
 import csv
-import StringIO
+import io
 
 gauge_url = "http://www.mysteamgauge.com/search?username={}"
 
@@ -68,7 +68,7 @@ def is_number(s):
 def unicode_dictreader(utf8_data, **kwargs):
     csv_reader = csv.DictReader(utf8_data, **kwargs)
     for row in csv_reader:
-        yield dict([(key.lower(), unicode(value, 'utf-8')) for key, value in row.iteritems()])
+        yield dict([(key.lower(), str(value, 'utf-8')) for key, value in row.items()])
 
 
 @hook.command('sc')
@@ -91,7 +91,7 @@ def steamcalc(inp, reply=None):
         except (http.HTTPError, http.URLError):
             return "Could not get data for this user."
 
-    csv_data = StringIO.StringIO(request)  # we use StringIO because CSV can't read a string
+    csv_data = io.StringIO(request)  # we use StringIO because CSV can't read a string
     reader = unicode_dictreader(csv_data)
 
     # put the games in a list

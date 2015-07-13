@@ -34,7 +34,7 @@ def onjoin(paraml, conn=None, bot=None):
         conn.join(channel)
         time.sleep(1)
 
-    print "Bot ready."
+    print("Bot ready.")
     
 
 # Auto-join on Invite (Configurable, defaults to True)
@@ -74,8 +74,8 @@ def onjoined(inp,input=None, conn=None, chan=None,raw=None, db=None):
         #check if bans
         banlist = database.get(db,'channels','bans','chan',chan)
         if banlist and mask in banlist:
-            conn.send(u"MODE {} {} *{}".format(input.chan, '+b', mask))
-            conn.send(u"KICK {} {} :{}".format(input.chan, input.nick, 'I dont think so Tim.'))
+            conn.send("MODE {} {} *{}".format(input.chan, '+b', mask))
+            conn.send("KICK {} {} :{}".format(input.chan, input.nick, 'I dont think so Tim.'))
 
     if not 'autoop' in disabled_commands:
         #check if ops
@@ -84,7 +84,7 @@ def onjoined(inp,input=None, conn=None, chan=None,raw=None, db=None):
         else: autoops = database.get(db,'channels','autoops','chan',chan)
         
         if autoops and mask in autoops:
-            conn.send(u"MODE {} {} {}".format(input.chan, '+o', input.nick))
+            conn.send("MODE {} {} {}".format(input.chan, '+o', input.nick))
 
     if not 'greeting' in disabled_commands:
         # send greeting
@@ -104,7 +104,7 @@ def onnick(paraml, conn=None, raw=None):
     new_nick = str(paraml[0])
     if old_nick == conn.nick:
         conn.nick = new_nick
-        print "Bot nick changed from '{}' to '{}'.".format(old_nick, new_nick)
+        print("Bot nick changed from '{}' to '{}'.".format(old_nick, new_nick))
 
 
 @hook.event("MODE")
@@ -132,7 +132,7 @@ def onmode(paraml, input=None, conn=None, raw=None, chan=None, db=None, bot=None
                     else: 
                         if mode in requires_param: param_num+=1
 
-            if len(fixed_modes) > 1: conn.send(u'MODE {} {} {}'.format(chan, ''.join(fixed_modes), ' '.join(params)))
+            if len(fixed_modes) > 1: conn.send('MODE {} {} {}'.format(chan, ''.join(fixed_modes), ' '.join(params)))
 
 
 @hook.singlethread

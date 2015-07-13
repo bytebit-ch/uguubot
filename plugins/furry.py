@@ -40,4 +40,4 @@ def furry(inp, reply=None):
     elif rating is 'q': rating = "\x02Questionable\x02"
     elif rating is 's': rating = "\x02\x033Safe\x03\x02"
 
-    return u'\x02[{}]\x02 Score: \x02{}\x02 - Rating: {} - {}'.format(id, score, rating, url)
+    return '\x02[{}]\x02 Score: \x02{}\x02 - Rating: {} - {}'.format(id, score, rating, url)

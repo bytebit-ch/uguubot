@@ -1,6 +1,6 @@
 from util import hook,http, database
 import random
-import urllib
+import urllib.request, urllib.parse, urllib.error
 
 # HONK HONK
 actions = {
@@ -16,7 +16,7 @@ def citation(db,chan,nick,reason):
     try: totalfines = int(database.get(db,'users','fines','nick',nick)) + fine
     except: totalfines = 0 + fine
     database.set(db,'users','fines',totalfines,'nick',nick)
-    return u"PRIVMSG {} :\x01ACTION fines {} \x02${}\x02 {}. You owe: \x0304${}\x02\x01".format(chan, nick, fine, reason, totalfines)
+    return "PRIVMSG {} :\x01ACTION fines {} \x02${}\x02 {}. You owe: \x0304${}\x02\x01".format(chan, nick, fine, reason, totalfines)
 
 
 @hook.command('rape', autohelp=False)
@@ -33,7 +33,7 @@ def honk(inp, nick=None, conn=None, chan=None,db=None, paraml=None):
         if random.randint(1, 3) == 2: 
             out = citation(db,chan,nick,"for {}".format(actions[command][1]))
         else:
-            out = u"PRIVMSG {} :\x01ACTION {}s {}\x01".format(chan, command, nick)
+            out = "PRIVMSG {} :\x01ACTION {}s {}\x01".format(chan, command, nick)
     else:
         randnum = random.randint(1, 4)
         if randnum == 1: 
@@ -41,7 +41,7 @@ def honk(inp, nick=None, conn=None, chan=None,db=None, paraml=None):
         elif randnum == 2: 
             out = citation(db,chan,target,"for being too lewd and getting {}".format(actions[command][0]))
         else:
-            out = u"PRIVMSG {} :\x01ACTION {}s {}\x01".format(chan, command, target)
+            out = "PRIVMSG {} :\x01ACTION {}s {}\x01".format(chan, command, target)
     conn.send(out)
 
 
@@ -52,14 +52,14 @@ def owed(inp, nick=None, conn=None, chan=None,db=None):
     fines = database.get(db,'users','fines','nick',nick)
     if not fines: fines = 0
     if fines <= 0:
-        return u'\x02{} owes: \x0309${}\x02'.format(nick,fines)
+        return '\x02{} owes: \x0309${}\x02'.format(nick,fines)
     else:
-        return u'\x02{} owes: \x0304${}\x02'.format(nick,fines)
+        return '\x02{} owes: \x0304${}\x02'.format(nick,fines)
 
 @hook.command(autohelp=False)
 def pay(inp, nick=None, conn=None, chan=None,db=None):
     """pay -- pay your fines"""
-    return u'\x02Donate to infinitys paypal to pay the fees! \x02'
+    return '\x02Donate to infinitys paypal to pay the fees! \x02'
 
 
 # VENDINGMACHINE
@@ -124,7 +124,7 @@ def intensify(inp):
     "intensify <word> -- [EXCITEMENT INTENSIFIES]"
     try: word = inp.upper()
     except: word = inp.group(1).upper()
-    return u'\x02[{} INTENSIFIES]\x02'.format(word)
+    return '\x02[{} INTENSIFIES]\x02'.format(word)
 
 
 @hook.command(autohelp=False)
@@ -164,7 +164,7 @@ def sudoku(inp, conn=None, chan=None, nick=None, say=None):
     "If [channel] is blank the bot will op you in "\
     "the channel the command was used in."
     say("Sayonara bonzai-chan...")
-    conn.send(u"KICK {} {}".format(chan, nick)) 
+    conn.send("KICK {} {}".format(chan, nick)) 
     return
 
 @hook.command("storyofrincewindscat", autohelp=False)

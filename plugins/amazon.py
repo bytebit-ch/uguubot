@@ -20,9 +20,9 @@ def amazon_url(match):
 
     star_count = round(float(rating.split(' ')[0]),0)
     stars=""
-    for x in xrange(0,int(star_count)):
+    for x in range(0,int(star_count)):
         stars = "{}{}".format(stars,'★')
-    for y in xrange(int(star_count),5):
+    for y in range(int(star_count),5):
         stars = "{}{}".format(stars,'☆')
 
     try: return ('\x02{}\x02 - \x02{}\x02 - \x034{}\x034'.format(title, stars, price)).decode('utf-8')
@@ -51,9 +51,9 @@ def amazon(inp):
 
     star_count = round(float(rating.split(' ')[0]),0)
     stars=""
-    for x in xrange(0,int(star_count)):
+    for x in range(0,int(star_count)):
         stars = "{}{}".format(stars,'★')
-    for y in xrange(int(star_count),5):
+    for y in range(int(star_count),5):
         stars = "{}{}".format(stars,'☆')
 
     return '\x02{}\x02 - {} - \x034{}\x02 - http://amzn.com/{}'.format(title, stars, price, azid).decode('utf-8')

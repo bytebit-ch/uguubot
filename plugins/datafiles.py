@@ -200,7 +200,7 @@ def add(inp,notice=None, channeladminonly=True):
     action=get_filename(action,notice)
 
     with open('plugins/data/{}.txt'.format(action), 'a') as file:
-        file.write(u'{}\n'.format(text).encode('utf-8'))
+        file.write('{}\n'.format(text).encode('utf-8'))
 
     notice('{} added.'.format(action))
     file.close()

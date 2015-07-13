@@ -24,7 +24,7 @@ def get_video_description(key,video_id):
 
     data = request['items'][0]
 
-    out = u'\x02{}\x02'.format(data['snippet']['title'])
+    out = '\x02{}\x02'.format(data['snippet']['title'])
 
     try:
         data['contentDetails'].get('duration')
@@ -42,7 +42,7 @@ def get_video_description(key,video_id):
         elif t[-1:] == 'M': seconds += 60 * t_field
         elif t[-1:] == 'S': seconds += t_field
 
-    out += u' - length \x02{}\x02'.format(timeformat.format_time(seconds, simple=True))
+    out += ' - length \x02{}\x02'.format(timeformat.format_time(seconds, simple=True))
 
     try:
         data['statistics']
@@ -54,22 +54,22 @@ def get_video_description(key,video_id):
     dislikes = plural(int(stats['dislikeCount']), "dislike")
 
     percent = 100 * float(stats['likeCount'])/(int(stats['likeCount'])+int(stats['dislikeCount']))
-    out += u' - {}, {} (\x02{:.1f}\x02%)'.format(likes, dislikes, percent)
+    out += ' - {}, {} (\x02{:.1f}\x02%)'.format(likes, dislikes, percent)
 
     views = int(stats['viewCount'])
-    out += u' - \x02{:,}\x02 {}{}'.format(views, 'view', "s"[views==1:])
+    out += ' - \x02{:,}\x02 {}{}'.format(views, 'view', "s"[views==1:])
 
     uploader = data['snippet']['channelTitle']
 
     upload_time = time.strptime(data['snippet']['publishedAt'], "%Y-%m-%dT%H:%M:%S.000Z")
-    out += u' - \x02{}\x02 on \x02{}\x02'.format(uploader, time.strftime("%Y.%m.%d", upload_time))
+    out += ' - \x02{}\x02 on \x02{}\x02'.format(uploader, time.strftime("%Y.%m.%d", upload_time))
 
     try:
         data['contentDetails']['contentRating']
     except KeyError:
         return out
 
-    out += u' - \x034NSFW\x02'
+    out += ' - \x034NSFW\x02'
 
     return out
 
@@ -97,7 +97,7 @@ def youtube(inp, bot=None):
 
     video_id = request['items'][0]['id']['videoId']
 
-    return get_video_description(key,video_id) + u" - " + video_url % video_id
+    return get_video_description(key,video_id) + " - " + video_url % video_id
 
 
 @hook.command('ytime')
@@ -136,7 +136,7 @@ def youtime(inp, bot=None):
     length_text = timeformat.format_time(seconds, simple=True)
     total_text = timeformat.format_time(total, accuracy=8)
 
-    return u'The video \x02{}\x02 has a length of {} and has been viewed {:,} times for ' \
+    return 'The video \x02{}\x02 has a length of {} and has been viewed {:,} times for ' \
             'a total run time of {}!'.format(data['snippet']['title'], length_text, views, total_text)
 
 
@@ -158,4 +158,4 @@ def youtubeplaylist_url(match):
     views = soup.find('ul', {'class': 'pl-header-details'}).findAll('li')[2].string
     views = re.sub("\D", "", views)
 
-    return u"\x02{}\x02 - \x02{}\x02 views - \x02{}\x02 videos - \x02{}\x02".format(title, views, numvideos, author)
+    return "\x02{}\x02 - \x02{}\x02 views - \x02{}\x02 videos - \x02{}\x02".format(title, views, numvideos, author)

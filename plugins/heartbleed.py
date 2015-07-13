@@ -79,7 +79,7 @@ def recvall(s, length, timeout=5):
         if s in r:
             try:
                 data = s.recv(remain)
-            except Exception, e:
+            except Exception as e:
                 return None
             # EOF?
             if not data:
@@ -103,7 +103,7 @@ def recvmsg(s):
 def hit_hb(s):
     try:
         s.send(hb)
-    except Exception, e:
+    except Exception as e:
         return False
     while True:
         typ, ver, pay = recvmsg(s)
@@ -129,7 +129,7 @@ def is_vulnerable(host, timeout):
     s.settimeout(int(timeout))
     try:
         s.connect((host, 443))
-    except Exception, e:
+    except Exception as e:
         return None
     s.send(hello)
     while True:
@@ -177,7 +177,7 @@ def scan_host(host):
     host = str(host)
     result = is_vulnerable(host, opts.timeout)
     message = store_results(host, result)
-    if opts.verbose: print message
+    if opts.verbose: print(message)
     return message
 
 
@@ -185,7 +185,7 @@ def print_summary():
     """ Print summary of previously stored json data to screen """
 
     counter = defaultdict(int)
-    for host, data in host_status.items():
+    for host, data in list(host_status.items()):
         friendly_status = "unknown"
         status = data.get('status', "Not scanned")
         if status is None:

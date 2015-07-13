@@ -30,7 +30,7 @@ def google(inp,db=None,chan=None):
     if not content: content = "No description available."
     else: content = http.html.fromstring(content.replace('\n', '')).text_content()
 
-    return u'{} -- \x02{}\x02: "{}"'.format(result['unescapedUrl'], title, content)
+    return '{} -- \x02{}\x02: "{}"'.format(result['unescapedUrl'], title, content)
 
 
 # @hook.command('image')
@@ -59,7 +59,7 @@ def gcalc(inp):
     if not result:
         return "Could not calculate '{}'".format(inp)
 
-    return u"{} {}".format(formula.contents[0].strip(),result.contents[0].strip())
+    return "{} {}".format(formula.contents[0].strip(),result.contents[0].strip())
 
 
 @hook.regex(r'^\>(.*\.(gif|GIF|jpg|JPG|jpeg|JPEG|png|PNG|tiff|TIFF|bmp|BMP))\s?(\d+)?')
@@ -78,8 +78,8 @@ def implying(inp):
         raise IOError('error searching for images: {}: {}'.format(parsed['responseStatus'], ''))
     if not parsed['responseData']['results']:
         return 'no images found'
-    try: return u'\x033\x02>{}\x02\x03 {}'.format(search, parsed['responseData']['results'][:10][num]['unescapedUrl'])
-    except: return u'\x033\x02>{}\x02\x03 {}'.format(search, parsed['responseData']['results'][:10][0]['unescapedUrl'])
+    try: return '\x033\x02>{}\x02\x03 {}'.format(search, parsed['responseData']['results'][:10][num]['unescapedUrl'])
+    except: return '\x033\x02>{}\x02\x03 {}'.format(search, parsed['responseData']['results'][:10][0]['unescapedUrl'])
     #return random.choice(parsed['responseData']['results'][:10])['unescapedUrl']
 
 
