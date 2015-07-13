@@ -21,7 +21,7 @@ def execute_eval(code, paste_multiline=True):
         status = "Python error: "
     else:
         status = "Code executed sucessfully: "
-        
+
     if "\n" in output and paste_multiline:
         return status + haste(output)
     else:

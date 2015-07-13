@@ -48,15 +48,15 @@ def format_time(seconds, count=3, accuracy=6, simple=False):
     for period_name, period_seconds in periods:
         if i < count:
             if seconds > period_seconds:
-                    period_value, seconds = divmod(seconds, period_seconds)
-                    i += 1
-                    if simple:
-                        strings.append("{}{}".format(period_value, period_name))
+                period_value, seconds = divmod(seconds, period_seconds)
+                i += 1
+                if simple:
+                    strings.append("{}{}".format(period_value, period_name))
+                else:
+                    if period_value == 1:
+                        strings.append("{} {}".format(period_value, period_name[0]))
                     else:
-                        if period_value == 1:
-                            strings.append("{} {}".format(period_value, period_name[0]))
-                        else:
-                            strings.append("{} {}".format(period_value, period_name[1]))
+                        strings.append("{} {}".format(period_value, period_name[1]))
         else:
             break
 

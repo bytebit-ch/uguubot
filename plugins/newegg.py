@@ -80,8 +80,8 @@ def newegg(inp):
 
     # submit the search request
     r = http.get_json(
-      'http://www.ows.newegg.com/Search.egg/Advanced', 
-      post_data = json.dumps(request)
+        'http://www.ows.newegg.com/Search.egg/Advanced', 
+        post_data = json.dumps(request)
     )
 
     # get the first result
@@ -90,5 +90,3 @@ def newegg(inp):
         return format_item(item)
     else:
         return "No results found."
-
-

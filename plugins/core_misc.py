@@ -35,7 +35,7 @@ def onjoin(paraml, conn=None, bot=None):
         time.sleep(1)
 
     print("Bot ready.")
-    
+
 
 # Auto-join on Invite (Configurable, defaults to True)
 @hook.event('INVITE')
@@ -69,7 +69,7 @@ def onjoined(inp,input=None, conn=None, chan=None,raw=None, db=None):
     mask = user.format_hostmask(input.mask)
     disabled_commands = database.get(db,'channels','disabled','chan',chan)
     if not disabled_commands: disabled_commands = ""
-    
+
     if not 'banlist' in disabled_commands:
         #check if bans
         banlist = database.get(db,'channels','bans','chan',chan)
@@ -82,7 +82,7 @@ def onjoined(inp,input=None, conn=None, chan=None,raw=None, db=None):
         autoop = database.get(db,'channels','autoop','chan',chan)
         if autoop: autoops = database.get(db,'channels','admins','chan',chan)
         else: autoops = database.get(db,'channels','autoops','chan',chan)
-        
+
         if autoops and mask in autoops:
             conn.send("MODE {} {} {}".format(input.chan, '+o', input.nick))
 

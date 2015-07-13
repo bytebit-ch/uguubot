@@ -132,7 +132,7 @@ def ctcp_event(paraml, input=None, bot=None, conn=None):
                         conn.send("PRIVMSG {} :[{}] {}: {}".format(channel, kind, nick, inpresult))
                         return
                     elif kind == "PING":
-                        
+
                         curtime = time.time()
                         senttime = re.search(r'\d+\.\d+',inpresult)
                         if senttime: 
@@ -172,7 +172,7 @@ def fhost(inp, nick=None, conn=None, db=None):
 
 
 
- 
+
 @hook.command
 def trolltest(inp, msg=None, nick=None):
     if nick == "Havixil":

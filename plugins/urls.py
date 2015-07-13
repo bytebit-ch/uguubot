@@ -21,7 +21,7 @@ def process_url(match,bot=None,input=None,chan=None,db=None, reply=None):
     url = match.group(1).replace('https:','http:')
 
     if '127.0.0.1' in url or 'localhost' in url.lower(): return
-    
+
     trimlength = database.get(db,'channels','trimlength','chan',chan)
     if not trimlength: trimlength = 9999
     try: trimlength = int(trimlength)
@@ -118,7 +118,7 @@ def ebay_url(match,bot):
 
     try: bids = item.xpath("//span[@id='qty-test']/text()")[0].strip()
     except: bids = "Buy It Now"
-    
+
     feedback = item.xpath("//span[@class='w2b-head']/text()")
     if not feedback: feedback = item.xpath("//div[@id='si-fb']/text()")
     if feedback: feedback = feedback[0].strip()
@@ -201,11 +201,11 @@ headers = {
 
 def unmatched_url(match,chan,db):
     disabled_commands = database.get(db,'channels','disabled','chan',chan)
-    
+
     try:
-	r = requests.get(match, headers=headers,allow_redirects=True, stream=True)
+        r = requests.get(match, headers=headers,allow_redirects=True, stream=True)
     except Exception as e:
-	return formatting.output('URL', ['Error: {}'.format(e)])
+        return formatting.output('URL', ['Error: {}'.format(e)])
 
     domain = urlparse(match).netloc
 
@@ -213,23 +213,23 @@ def unmatched_url(match,chan,db):
         content_type = r.headers['Content-Type']
         try: encoding = r.headers['content-encoding']
         except: encoding = ''
-        
+
         if content_type.find("html") != -1: # and content_type is not 'gzip':
-	    data = ''
-	    for chunk in r.iter_content(chunk_size=1024):
-		data += chunk
-		if len(data) > 48336: break
+            data = ''
+            for chunk in r.iter_content(chunk_size=1024):
+                data += chunk
+                if len(data) > 48336: break
 
             body = html.fromstring(data)
 
             try: title = body.xpath('//title/text()')[0]
-	    except: return formatting.output('URL', ['No Title ({})'.format(domain)])
+            except: return formatting.output('URL', ['No Title ({})'.format(domain)])
 
             try: title_formatted = text.fix_bad_unicode(body.xpath('//title/text()')[0])
             except: title_formatted = body.xpath('//title/text()')[0]
             return formatting.output('URL', ['{} ({})'.format(title_formatted, domain)])
         else:
-	    if disabled_commands:
+            if disabled_commands:
                 if 'filesize' in disabled_commands: return
             try:
                 if r.headers['Content-Length']:
@@ -242,5 +242,5 @@ def unmatched_url(match,chan,db):
                 length = "Unknown size"
             if "503 B" in length: length = ""
             if length is None: length = ""
-	    return formatting.output('URL', ['{} Size: {} ({})'.format(content_type, length, domain)])
+            return formatting.output('URL', ['{} Size: {} ({})'.format(content_type, length, domain)])
     return

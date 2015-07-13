@@ -27,7 +27,7 @@ responses = (
     ("wop",                     ("wop","wop")),
     ("myah",                    ("i want to die","i want to die")),
     ("i want to die",           ("MYAH!","MYAH~")),
-    
+
 )
     # ("yeah",                    ("yeah","yeah")),
 
@@ -66,7 +66,7 @@ def ai_sieve(paraml, input=None, notice=None, db=None, bot=None, nick=None, conn
             wildcards = list(filter(bool, re.split(pattern[0], input.msg.lower())))
             # replace pronouns
             wildcards = [' '.join(pronouns.get(word, word) for word in wildcard.split()) for wildcard in wildcards]
-        
+
             response = random.choice(pattern[1])
             response = response.replace('{nick}',input.nick)
             response = response.format(*wildcards)
@@ -126,7 +126,7 @@ def ai_sieve(paraml, input=None, notice=None, db=None, bot=None, nick=None, conn
     # input = re.split("[\.!?]",raw_input("> ").lower().rstrip('.!?'))
     # print input
     # full_reply=' '
-    
+
     # for sentence in input:
     #     sentence=sentence.lstrip()
     #     for pattern in responses:
@@ -139,7 +139,7 @@ def ai_sieve(paraml, input=None, notice=None, db=None, bot=None, nick=None, conn
     #             response = random.choice(pattern[1])
     #             response = response.format(*wildcards)
     #             full_reply+=response+' '
-                
+
     #             break
-    
+
     # print full_reply

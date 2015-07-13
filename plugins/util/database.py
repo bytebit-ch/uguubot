@@ -2,11 +2,11 @@ from util import hook
 import log
 
 channel_columns = ['chan NOT NULL',
-		   'admins', 'permissions', 'ops', 'bans', 'disabled', 'ignored', 'badwords', 'flood', 'cmdflood', 'trimlength', 'autoop', 'votekick', 'voteban',
-		   'primary key(chan)']
+                   'admins', 'permissions', 'ops', 'bans', 'disabled', 'ignored', 'badwords', 'flood', 'cmdflood', 'trimlength', 'autoop', 'votekick', 'voteban',
+                   'primary key(chan)']
 user_columns	= ['nick NOT NULL', 
-		   'mask', 'version', 'location', 'lastfm', 'fines', 'battlestation', 'desktop', 'horoscope', 'greeting', 'waifu', 'husbando', 'birthday', 'homescreen', 'snapchat', 'mal', 'selfie', 'steam',
-		   'primary key(nick)']
+                   'mask', 'version', 'location', 'lastfm', 'fines', 'battlestation', 'desktop', 'horoscope', 'greeting', 'waifu', 'husbando', 'birthday', 'homescreen', 'snapchat', 'mal', 'selfie', 'steam',
+                   'primary key(nick)']
 
 db_ready = False
 
@@ -43,7 +43,7 @@ def set(db, table, field, value, matchfield, matchvalue):
     if type(value) is str: value = value.replace("'","").replace('\"', "")
 
     try:
-	db.execute("ALTER TABLE {} ADD COLUMN {};".format(table, field))
+        db.execute("ALTER TABLE {} ADD COLUMN {};".format(table, field))
     except:
         pass
 
@@ -54,6 +54,6 @@ def set(db, table, field, value, matchfield, matchvalue):
             db.execute("INSERT INTO {} ({},{}) VALUES ('{}','{}');".format(table,field,matchfield,value,matchvalue))
     except:
         db.execute("UPDATE {} SET {} = '{}' WHERE {} = '{}';".format(table,field,value,matchfield,matchvalue))
-        
+
     db.commit()
     return

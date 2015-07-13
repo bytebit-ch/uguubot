@@ -42,7 +42,7 @@ def match(inp,nick=None,chan=None,bot=None,input=None,db=None):
     if channeladmin and globaladmin: return "Global & Local Admin: ({})".format(mask)
     elif channeladmin: return "Local Admin: {}".format(mask)
     elif globaladmin: return "Global Admin: {}".format(mask)
-        
+
     return '{}: is not an admin'.format(mask)
     # return re.sub(r'(@[^@\.]+\d{2,}([^\.]?)+\.)','*',inp.replace('@','@@')).replace('~','').replace('@@','@').lower().strip()
 
@@ -63,7 +63,7 @@ def admins(inp, notice=None, bot=None, chan=None, db=None):
 def admin(inp, notice=None, bot=None, chan=None, db=None):
     """admin [channel] <add|del> <nick|host> -- Makes the user an admin."""
     admins = database.get(db,'channels','admins','chan',chan)
-    
+
     channel = chan.lower()
     command = inp.split()[0]
     nicks = inp.split()[1:]
@@ -111,7 +111,7 @@ def admin(inp, notice=None, bot=None, chan=None, db=None):
 def autoop(inp, notice=None, bot=None, chan=None, db=None):
     """aop [channel] <enable|disable> OR <add|del> <nick|host> -- Add/Del Autoops."""
     autoops = database.get(db,'channels','autoops','chan',chan)
-    
+
     channel = chan.lower()
     command = inp.split()[0]
     if 'enable' in command:
@@ -207,7 +207,7 @@ def disabled(inp, notice=None, bot=None, chan=None, db=None):
 def disable(inp, notice=None, bot=None, chan=None, db=None):
     """disable [#channel] <commands> -- Disables commands for a channel.
     (you can disable multiple commands at once)"""
- 
+
     disabledcommands = database.get(db,'channels','disabled','chan',chan)
     targets = inp.split()
     for target in targets:  
@@ -215,7 +215,7 @@ def disable(inp, notice=None, bot=None, chan=None, db=None):
             notice("[{}]: {} is already disabled.".format(chan,target))
         else:
             if 'disable' in target or 'enable' in target:
-                 notice("[{}]: {} cannot be disabled.".format(chan,target))
+                notice("[{}]: {} cannot be disabled.".format(chan,target))
             else:
                 disabledcommands = '{} {}'.format(target,disabledcommands)
                 database.set(db,'channels','disabled',disabledcommands,'chan',chan)
@@ -227,7 +227,7 @@ def disable(inp, notice=None, bot=None, chan=None, db=None):
 def enable(inp, notice=None, bot=None, chan=None, db=None):
     """enable [#channel] <commands|all> -- Enables commands for a channel.
     (you can enable multiple commands at once)"""
- 
+
     disabledcommands = database.get(db,'channels','disabled','chan',chan)
     targets = inp.split()
     if 'all' in targets or '*' in targets:
@@ -274,8 +274,8 @@ def flood(inp, conn=None, chan=None, notice=None, db=None):
             notice("[{}]: Flood is disabled.".format(chan))
             notice(flood.__doc__)
     elif "disable" in inp:
-            database.set(db,'channels','flood',None,'chan',chan)
-            notice("[{}]: Flood Protection Disabled.".format(chan))
+        database.set(db,'channels','flood',None,'chan',chan)
+        notice("[{}]: Flood Protection Disabled.".format(chan))
     else:
         flood_num = inp.split()[0]
         flood_duration = inp.split()[1]
@@ -298,8 +298,8 @@ def cmdflood(inp, conn=None, chan=None, notice=None, db=None):
             notice("[{}]: CMD Flood is disabled.".format(chan))
             notice(cmdflood.__doc__)
     elif "disable" in inp:
-            database.set(db,'channels','cmdflood',None,'chan',chan)
-            notice("[{}]: Command Flood Protection Disabled.".format(chan))
+        database.set(db,'channels','cmdflood',None,'chan',chan)
+        notice("[{}]: Command Flood Protection Disabled.".format(chan))
     else:
         flood_num = inp.split()[0]
         flood_duration = inp.split()[1]
@@ -315,7 +315,7 @@ def cmdflood(inp, conn=None, chan=None, notice=None, db=None):
 @hook.command(permissions=["op_lock", "op"], channeladminonly=True, autohelp=False)
 def badwords(inp, notice=None, bot=None, chan=None, db=None):
     """disabled [#channel] -- Lists disabled commands/."""
- 
+
 
     if len(inp) == 0 or 'list' in inp:
         badwordlist = database.get(db,'channels','badwords','chan',chan)
@@ -485,7 +485,7 @@ def ban(inp, conn=None, chan=None, notice=None, db=None, nick=None, bot=None):
         return
 
     if len(split) > 1: reason = " ".join(split[1:])
-    
+
     if not '@' in inp_nick: target = user.get_hostmask(inp_nick,db)
     else: target = inp_nick
 

@@ -69,7 +69,7 @@ def sieve_suite(bot, input, func, kind, args):
     # ignore any input from the bot
     if input.nick == input.conn.nick: return None    # print "Ignoring {}".format(input.conn.nick)
     if input.command == 'QUIT': return None #fix for db issue???
-        
+
     # ignore bots if ignorebots = true
     if input.command == 'PRIVMSG' and input.nick.lower().endswith('bot') and args.get('ignorebots', True): return None
 
@@ -100,19 +100,19 @@ def sieve_suite(bot, input, func, kind, args):
     if disabled_commands and not fn.group(1).lower().strip() == 'log':
         # check for disabled modules
         if fn and re.search(r"\b{}\b".format(fn.group(1).lower().strip()), disabled_commands):
-	    if user.is_globaladmin(input.mask, chan, bot):
-		print(("[{}]: {} is disabled.".format(input.chan,fn.group(1))))
+            if user.is_globaladmin(input.mask, chan, bot):
+                print(("[{}]: {} is disabled.".format(input.chan,fn.group(1))))
             return None
         # check for disabled commands
         if kind == "command" and re.search(r"\b{}\b".format(input.trigger.lower().strip()), disabled_commands):
-	    if user.is_globaladmin(input.mask, chan, bot):
-		input.notice("[{}]: {} is disabled.".format(input.chan,input.trigger))
-	    print(("[{}]: {} is disabled.".format(input.chan,input.trigger)))
+            if user.is_globaladmin(input.mask, chan, bot):
+                input.notice("[{}]: {} is disabled.".format(input.chan,input.trigger))
+            print(("[{}]: {} is disabled.".format(input.chan,input.trigger)))
             return None
         # check for disabled regex
         if kind == "regex" and re.search(r"\b{}\b".format(func.__name__.lower().strip()), disabled_commands):
-	    if user.is_globaladmin(input.mask, chan, bot):
-		print(("[{}]: {} is disabled.".format(input.chan,func.__name__)))
+            if user.is_globaladmin(input.mask, chan, bot):
+                print(("[{}]: {} is disabled.".format(input.chan,func.__name__)))
             return None
 
     # print fn.group(1)
@@ -122,7 +122,7 @@ def sieve_suite(bot, input, func, kind, args):
        fn.group(1) == 'ai' or \
        fn.group(1) == 'core_ctcp': return input
        # fn.group(1) == 'log': 
- 
+
     if 'ledzep' in input.nick.lower(): ledzep_counter+=input.msg.lower().count('tfw')
 
     if 'sudos' in input.nick.lower(): sudos_counter+=input.msg.lower().count('tfw')
@@ -130,7 +130,7 @@ def sieve_suite(bot, input, func, kind, args):
     # CANT SOMEONE DISABLE SEEN OR LOG????
 
     ### process global config options
-    
+
     # process acls
     acl = bot.config.get('acls', {}).get(func.__name__)
     if acl:
@@ -147,7 +147,7 @@ def sieve_suite(bot, input, func, kind, args):
     # if not fn.group(1) == 'log': print fn.group(1)
 
     ### channel configs
-  
+
     globaladmin = user.is_globaladmin(input.mask, chan, bot) 
     if args.get('adminonly', False):
         if not globaladmin: return None
@@ -190,7 +190,7 @@ def sieve_suite(bot, input, func, kind, args):
                         cmdflood[input.nick].remove(x)
 
                 json.dump(cmdflood, open(cmdflood_filename, 'w'), sort_keys=True, indent=2)
-     
+
                 if len(cmdflood[input.nick]) > (int(cmdflood_num)):
                     input.notice("Flood detected. Please wait {} seconds.".format(cmdflood_duration))
                     return None

@@ -35,7 +35,7 @@ def furry(inp, reply=None):
         return 'No Results'
 
     id, score, url, rating, tags = furry_cache.pop()
-    
+
     if rating is 'e': rating = "\x02\x034NSFW\x03\x02"
     elif rating is 'q': rating = "\x02Questionable\x02"
     elif rating is 's': rating = "\x02\x033Safe\x03\x02"

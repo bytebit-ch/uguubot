@@ -17,7 +17,7 @@ def convert(inp,conn=None,chan=None):
     elif 'ltc' in inp.lower() or 'litecoin' in inp.lower():
         convert_ltc(inp,conn,chan)
         return None
-    
+
     conv_left = None
     conv_right = None
     result = None
@@ -28,26 +28,26 @@ def convert(inp,conn=None,chan=None):
     #soup = soup.find('div', attrs={'id': re.compile('ires')})
     is_currency = soup.find('li', attrs={'class': re.compile('currency')})
     if is_currency:
-      conv_left = soup.find('input', id='pair_base_input')
-      conv_right = soup.find('input', id='pair_targ_input')
-      if not (conv_left is None or conv_right is None):
-        left_value = conv_left['value'].strip()
-        left_unit = conv_left.findNext('option').renderContents().strip()
-        right_value = conv_right['value'].strip()
-        right_unit = conv_right.findNext('option').renderContents().strip()
+        conv_left = soup.find('input', id='pair_base_input')
+        conv_right = soup.find('input', id='pair_targ_input')
+        if not (conv_left is None or conv_right is None):
+            left_value = conv_left['value'].strip()
+            left_unit = conv_left.findNext('option').renderContents().strip()
+            right_value = conv_right['value'].strip()
+            right_unit = conv_right.findNext('option').renderContents().strip()
     else:
-      conv_left = soup.find('input', id='ucw_lhs_d')
-      conv_right = soup.find('input', id='ucw_rhs_d')
-      if not (conv_left is None or conv_right is None):
-        left_value = conv_left['value'].strip()
-        left_unit = conv_left.findNext('option').renderContents().strip()
-        right_value = conv_right['value'].strip()
-        right_unit = conv_right.findNext('option').renderContents().strip()
+        conv_left = soup.find('input', id='ucw_lhs_d')
+        conv_right = soup.find('input', id='ucw_rhs_d')
+        if not (conv_left is None or conv_right is None):
+            left_value = conv_left['value'].strip()
+            left_unit = conv_left.findNext('option').renderContents().strip()
+            right_value = conv_right['value'].strip()
+            right_unit = conv_right.findNext('option').renderContents().strip()
 
     try:
-      result = left_value + " " + left_unit + "s = " + right_value + " " + right_unit + "s"
+        result = left_value + " " + left_unit + "s = " + right_value + " " + right_unit + "s"
     except Exception:
-      pass
+        pass
 
     if result:
         return result

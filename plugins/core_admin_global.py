@@ -167,13 +167,13 @@ def part(inp, conn=None, chan=None, notice=None, bot=None):
     for target in targets.split(" "):
         if not target.startswith("#"):
             target = "#{}".format(target)
-	if target in conn.channels:
-	    notice("Attempting to leave {}...".format(target))
-	    conn.part(target)
-	    channellist.remove(target.lower().strip())
-	    print('Deleted {} from channel list.'.format(target))
-	else:
-	    notice("Not in {}!".format(target))
+        if target in conn.channels:
+            notice("Attempting to leave {}...".format(target))
+            conn.part(target)
+            channellist.remove(target.lower().strip())
+            print('Deleted {} from channel list.'.format(target))
+        else:
+            notice("Not in {}!".format(target))
 
     json.dump(bot.config, open('config', 'w'), sort_keys=True, indent=2)
     return
@@ -256,7 +256,7 @@ def me(inp, conn=None, chan=None):
         message = message[:-1]
         out = "PRIVMSG {} :\x01ACTION {}\x01".format(chan, message)
     conn.send(out)
-     
+
 
 @hook.command(channeladminonly=True)
 def set(inp, conn=None, chan=None, db=None, notice=None):
@@ -298,7 +298,7 @@ def set(inp, conn=None, chan=None, db=None, notice=None):
 
     notice("Could not set {}.".format(field))
     return
-    
+
 
 @hook.command(adminonly=True, autohelp=False)
 def db(inp,db=None):

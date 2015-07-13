@@ -110,8 +110,8 @@ def anime(inp, notice=None):
             curday = curday + 1
 
     return media.get_series_info(inp)    
-    
-    
+
+
 
 
 @hook.command
@@ -131,23 +131,23 @@ def animetake(inp):
 
     soup = http.get_soup(url)
     page = soup.find('div', id='mainContent').ul
- 
+
     for li in page.findAll('li'):
-      anime_link = li.find('div', 'updateinfo').h4.a
-      anime_updates.append('%s : %s' % (anime_link['title'], anime_link['href']))
+        anime_link = li.find('div', 'updateinfo').h4.a
+        anime_updates.append('%s : %s' % (anime_link['title'], anime_link['href']))
 
     if command == 'list':
-      count = 1
-      response = "Latest Anime Updates: "       
-      for anime_title in anime_updates:
-        response += ("%s | " % (anime_title.split(' : ')[0]))
-        count+=1
-        if count == 11:
-          break
+        count = 1
+        response = "Latest Anime Updates: "       
+        for anime_title in anime_updates:
+            response += ("%s | " % (anime_title.split(' : ')[0]))
+            count+=1
+            if count == 11:
+                break
     elif command == 'get':
-      indices = [i for i, x in enumerate(anime_updates) if query in x]
-      for index in indices:
-        response += ("%s " % (anime_updates[index]))
+        indices = [i for i, x in enumerate(anime_updates) if query in x]
+        for index in indices:
+            response += ("%s " % (anime_updates[index]))
     return response
 
 
@@ -222,9 +222,9 @@ def s6(inp):
 
 
 # import pyanidb as anidb
-  
+
 # #anidb.set_client("pyanihttp", 1)
-  
+
 # def get_anime(user, channel, text):
 #     try:
 #         aid = int(text.split()[1])
@@ -245,7 +245,7 @@ def s6(inp):
 #         print"No data"
 #         return "Sorry, no data could be retrieved"
 #     return anime
-  
+
 
 # def atags(user, channel, text):
 #     """Show the tags of an anime. Parameters: an aid"""
@@ -257,7 +257,7 @@ def s6(inp):
 #     tags = [tag.name for tag in anime.tags]
 #     msg(channel, "Anime %s is tagged %s" % (anime.id,
 #             ", ".join(tags[:int(get("max_tags", 5))])))
-  
+
 
 # def ainfo(user, channel, text):
 #     """Query the AniDB for information about an anime. Parameters: An aid"""
@@ -273,7 +273,7 @@ def s6(inp):
 #         info_s += " to: %i/%i/%i" % (anime.enddate.year,
 #                 anime.enddate.month, anime.enddate.day)
 #     msg(channel, info_s)
-  
+
 #     rating_s = u"Ratings:"
 #     for i in ("permanent", "temporary"):
 #         if anime.ratings[i]["count"] is not None:
@@ -292,7 +292,7 @@ def s6(inp):
 #             pass
 #     title_s = "Known as: %s" % ", ".join(titles)
 #     msg(channel, title_s)
-  
+
 # @hook.command(autohelp=False)
 # def asearch(inp, chan=None, notice=None):
 #     """Search for an anime"""
@@ -303,11 +303,11 @@ def s6(inp):
 #     print name
 #     results = anidb.search(name)
 #     max_results = int(get("max_search_results", 5))
-  
+
 #     if len(results) > max_results:
 #         notice("Too many results, please refine your search")
-        
-  
+
+
 #     result_strings = []
 #     for anime in results:
 #         titles = []
@@ -320,4 +320,3 @@ def s6(inp):
 #                 pass
 #         result_strings.append("%i: %s" % (anime.id, ", ".join(titles)))
 #     return result_strings
-  

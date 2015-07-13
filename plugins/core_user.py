@@ -54,7 +54,7 @@ def desktop(inp, nick=None, conn=None, chan=None,db=None, notice=None):
     else: 
         if not '@' in inp: notice(desktop.__doc__)
         return 'No desktop saved for {}.'.format(nick)
-        
+
 
 ### Greeting
 @hook.command('intro', autohelp=False)
@@ -189,7 +189,7 @@ def horoscope(inp, db=None, notice=None, nick=None):
     """horoscope <sign> [save] -- Get your horoscope."""
     save = False
     database.init(db)
-    
+
     if '@' in inp:
         nick = inp.split('@')[1].strip()
         sign = database.get(db,'users','horoscope','nick',nick)
@@ -213,7 +213,7 @@ def horoscope(inp, db=None, notice=None, nick=None):
     except: return "Could not get the horoscope for {}.".format(sign.encode('utf8'))
 
     if sign and save: database.set(db,'users','horoscope',sign,'nick',nick)
-    
+
     return "\x02{}\x02 {}".format(title, horoscopetxt)
 
 
@@ -260,7 +260,7 @@ def snapchat(inp, nick=None, conn=None, chan=None,db=None, notice=None):
         database.set(db,'users','snapchat','{} '.format(inp.strip().encode('utf8')),'nick',nick)
         notice("Saved your snapchat.")
     return
-        
+
 @hook.command(autohelp=False)
 def myanime(inp, nick=None, conn=None, chan=None,db=None, notice=None):
     "myanime <mal name | @ person> -- Shows a users myanimelist profile."

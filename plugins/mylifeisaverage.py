@@ -7,7 +7,7 @@ def refresh_cache():
     "gets a page of random MLIAs and puts them into a dictionary "
     url = 'http://mylifeisaverage.com/%s' % random.randint(1,11000)
     soup = http.get_soup(url)
-    
+
     for story in soup.find_all('div', {'class': 'story '}):
         mlia_id = story.find('span', {'class': 'left'}).a.text
         mlia_text = story.find('div', {'class': 'sc'}).text.strip()

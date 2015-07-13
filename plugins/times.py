@@ -10,12 +10,12 @@ def times(inp, bot=None):
     default_format = "%I:%M %p %Z"
     default_separator = " | "
     default_timezones = [
-      ("Los Angeles", "America/Los_Angeles"),
-      ("New York", "America/New_York"),
-      ("London", "Europe/London"),
-      ("Berlin", "Europe/Berlin"),
-      ("Kiev", "Europe/Kiev"),
-      ("Tokyo", "Asia/Tokyo")
+        ("Los Angeles", "America/Los_Angeles"),
+        ("New York", "America/New_York"),
+        ("London", "Europe/London"),
+        ("Berlin", "Europe/Berlin"),
+        ("Kiev", "Europe/Kiev"),
+        ("Tokyo", "Asia/Tokyo")
     ]
 
     out = []
@@ -26,7 +26,7 @@ def times(inp, bot=None):
     tz_separator = bot.config["plugins"]["times"].get("separator", default_separator)
 
     for (location, tztext) in tz_zones:
-      tzout = utc.astimezone(timezone(tztext)).strftime(tz_format)
-      out.append("{} {}".format(location, tzout))
+        tzout = utc.astimezone(timezone(tztext)).strftime(tz_format)
+        out.append("{} {}".format(location, tzout))
 
     return tz_separator.join(out)

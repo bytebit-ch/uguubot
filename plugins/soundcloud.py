@@ -15,13 +15,13 @@ def soundcloud(url, api_key):
 
     genre = ""
     if data['genre']: genre = "- Genre: \x02{}\x02 ".format(data['genre'])
-        
+
     duration = ""
     if data['duration']:
         tracklength = float(data['duration']) / 60000
         tracklength = re.match('(.*\...)', str(tracklength)).group(1)
         if tracklength: duration = " {} mins -".format(tracklength)
-        
+
 
     url = web.try_isgd(data['permalink_url'])
 

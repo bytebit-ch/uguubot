@@ -35,9 +35,9 @@ def add_quote(db, chan, nick, add_nick, msg):
 
 def del_quote(db, nick, num):
     """Deletes a quote from a nick"""
-    
+
     msg = get_msg_by_nick(db, nick, num)
-    
+
     try:
         db.execute('''UPDATE quote SET deleted = 1 WHERE
                       lower(nick)=lower(?) AND msg=?''',
@@ -97,7 +97,7 @@ def get_msg_by_nick(db, nick, num):
                           AND lower(nick) = lower(?)
                           ORDER BY time
                           LIMIT ?, 1''', (nick, (num - 1))).fetchall()[0]
-                          
+
     msg, = quote
     return msg
 
@@ -176,7 +176,7 @@ def quote(inp, nick='', chan='', db=None, notice=None,reply=None):
     retrieve = re.match(r"(\S+)(?:\s+#?(-?\d+))?$", inp)
     retrieve_chan = re.match(r"(#\S+)\s+(\S+)(?:\s+#?(-?\d+))?$", inp)
     retrieve_search = re.match(r"(\S+)(?:\s+)(.+)$", inp)
-    
+
     if add:
         quoted_nick, msg = add.groups()
         notice(add_quote(db, chan, quoted_nick, nick, msg))
@@ -219,7 +219,7 @@ def rquote(inp, db=None, notice=None):
 
 
     # cur.execute("SELECT * FROM list WHERE InstitutionName=?", (Variable,))
-    
+
 
 # elif delete:
 #         quoted_nick, msg = add.groups()
@@ -229,13 +229,12 @@ def rquote(inp, db=None, notice=None):
 # def rquote(inp, nick='', chan='', db=None, notice=None):
 #     "rquote <nick> <#n> -- Removes <#n>th quote by <nick>"
 #     create_table_if_not_exists(db)
-    
+
 #     remove = re.match(r"(\S+?)\s+(\d+)", inp)
-    
+
 #     if remove:
 #         quoted_nick, num = remove.groups()
 #         notice(del_quote(db, quoted_nick, num))
 #         return
-    
+
 #     notice(quote.__doc__)
-        

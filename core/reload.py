@@ -119,7 +119,7 @@ def reload(init=False):
                             # output += '</module>'
                             # with open('index.txt', 'a') as file:
                                 # file.write(u'{}\n'.format(output).encode('utf-8'))
-        
+
 
 
     if changed:

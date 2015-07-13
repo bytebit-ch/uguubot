@@ -3,7 +3,7 @@ from time import time
 
 class TokenBucket(object):
     """An implementation of the token bucket algorithm.
-    
+
     >>> bucket = TokenBucket(80, 0.5)
     >>> print bucket.consume(10)
     True

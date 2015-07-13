@@ -8,7 +8,7 @@ def timefunction(inp, nick="", reply=None, db=None, notice=None):
     "time [location] [dontsave] | [@ nick] -- Gets time for <location>."
 
     save = True
-    
+
     if '@' in inp:
         nick = inp.split('@')[1].strip()
         location = database.get(db,'users','location','nick',nick)
@@ -46,7 +46,7 @@ def timefunction2(inp, nick="", reply=None, db=None, notice=None):
     "time [location] [dontsave] | [@ nick] -- Gets time for <location>."
 
     save = True
-    
+
     if '@' in inp:
         nick = inp.split('@')[1].strip()
         location = database.get(db,'users','location','nick',nick)

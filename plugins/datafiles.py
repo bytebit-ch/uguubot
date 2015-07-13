@@ -245,7 +245,7 @@ def process_text(inp,name,notice):
 
 #         if action.isdigit(): num = int(action) - 1
 #         elif text.isdigit(): num = int(text) - 1
-        
+
 #         elif 'add' in action:
 #             if 'http:' in text:
 #                 with open('plugins/data/{}.txt'.format(name), 'a') as file:
@@ -264,14 +264,14 @@ def process_text(inp,name,notice):
 #                 lines = lines.replace(lines[num],'')
 #             print "deleting"
 
-        
+
 #     with open("plugins/data/{}.txt".format(name)) as file:
 #         lines = [line.strip() for line in file.readlines() if not line.startswith("//")]
 #     linecount = len(lines) - 1
 #     if num < 0: num = randint(0,linecount)
 #     reply='\x02[{}/{}]\x02 {}'.format(num+1,linecount+1,lines[num]).decode('utf-8')
 
-    
+
 #     file.close()
 #     lines =[]
 #     return reply
@@ -334,7 +334,7 @@ def bender(inp,say=None):
     say(random.choice(benders))
     benders = []
     return
-    
+
 @hook.command('gains', autohelp=False)
 @hook.command(autohelp=False)
 def gainz(inp, say=None,notice=None):
@@ -347,6 +347,3 @@ def nsfw(inp, say=None,notice=None):
     """nsfw -- Have a nice fap"""
     say(process_text(inp,"nsfw",notice))
     return
-
-
-

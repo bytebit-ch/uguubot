@@ -19,7 +19,7 @@ def onjoined_addhighlight(inp,input=None, conn=None, chan=None,raw=None):
     global userlist
     try: userlist[input.chan.lower().replace('#','')].add(input.nick.lower())
     except: return     
-    
+
 
 @hook.sieve
 def highlight_sieve(bot, input, func, kind, args):
@@ -57,7 +57,7 @@ def getusers(inp, conn=None,chan=None):
     if inp: chan = inp
     conn.send('NAMES {}'.format(chan))
 
-    
+
 ### dev ###
 # @hook.command(autohelp=False,adminonly=True)
 # def testcompare(inp, conn=None,chan=None, notice=None):

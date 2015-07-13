@@ -51,17 +51,17 @@ def countdown(inp, bot=None, nick=None, conn=None, chan=None, notice=None):
                 set_countdown_to_false()
                 return "Countdown has expired."
                 break
-    
+
         send(conn,chan,'Ready! The countdown will begin in 5 seconds...')
         time.sleep(5)
 
 
     for cur in range(1, count):
-     send(conn,chan,'*** %s ***' % (count - cur))
-     time.sleep(1)
+        send(conn,chan,'*** %s ***' % (count - cur))
+        time.sleep(1)
     else:
-     set_countdown_to_false()
-     return '*** GO ***'
+        set_countdown_to_false()
+        return '*** GO ***'
 
 
 @hook.command(autohelp=False) #, adminonly=True

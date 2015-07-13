@@ -91,4 +91,3 @@ def bots(inp):
 @hook.command(autohelp=False)
 def source(inp):
     return "\x02uguubot\x02 - http://github.com/infinitylabs/uguubot"
-    

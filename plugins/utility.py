@@ -6,17 +6,17 @@ import re
 # variables
 
 colors = collections.OrderedDict([
-  ('red',     '\x0304'),
-  ('ornage',  '\x0307'),
-  ('yellow',  '\x0308'),
-  ('green',   '\x0309'),
-  ('cyan',    '\x0303'),
-  ('ltblue',  '\x0310'),
-  ('rylblue', '\x0312'),
-  ('blue',    '\x0302'),
-  ('magenta', '\x0306'),
-  ('pink',    '\x0313'),
-  ('maroon',  '\x0305')
+    ('red',     '\x0304'),
+    ('ornage',  '\x0307'),
+    ('yellow',  '\x0308'),
+    ('green',   '\x0309'),
+    ('cyan',    '\x0303'),
+    ('ltblue',  '\x0310'),
+    ('rylblue', '\x0312'),
+    ('blue',    '\x0302'),
+    ('magenta', '\x0306'),
+    ('pink',    '\x0313'),
+    ('maroon',  '\x0305')
 ])
 
 # helper functions
@@ -188,4 +188,3 @@ def shorten(inp):
         return web.isgd(inp)
     except (web.ShortenError, http.HTTPError) as error:
         return error
-

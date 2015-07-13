@@ -55,7 +55,7 @@ def parseTerms():
                            Optional( point + Optional( Word( nums ) ) ) +
                            Optional( e + Word( "+-"+nums, nums ) ) )
         ident = Word(alphas, alphas+nums+"_$")
-     
+
         plus  = Literal( "+" )
         minus = Literal( "-" )
         mult  = Literal( "*" )
@@ -66,15 +66,15 @@ def parseTerms():
         multop = mult | div
         expop = Literal( "^" )
         pi    = CaselessLiteral( "PI" )
-        
+
         expr = Forward()
         atom = (Optional("-") + ( pi | e | fnumber | ident + lpar + expr + rpar ).setParseAction( pushFirst ) | ( lpar + expr.suppress() + rpar )).setParseAction(pushUMinus) 
-        
+
         # by defining exponentiation as "atom [ ^ factor ]..." instead of "atom [ ^ atom ]...", we get right-to-left exponents, instead of left-to-righ
         # that is, 2^3^2 = 2^(3^2), not (2^3)^2.
         factor = Forward()
         factor << atom + ZeroOrMore( ( expop + factor ).setParseAction( pushFirst ) )
-        
+
         term = factor + ZeroOrMore( ( multop + factor ).setParseAction( pushFirst ) )
         expr << term + ZeroOrMore( ( addop + term ).setParseAction( pushFirst ) )
         terms = expr
@@ -122,4 +122,3 @@ def c(inp):
             val = val
     # return u"{} = {}".format(inp, val)
     return "{}".format(val)
-

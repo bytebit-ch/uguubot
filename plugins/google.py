@@ -70,7 +70,7 @@ def implying(inp):
     except: search = inp
     try: num = int(inp.group(3))
     except: num = 0
-    
+
     if 'http' in search: return
 
     parsed = api_get('images', search)
@@ -96,4 +96,3 @@ def lmgtfy(inp, bot=None):
         return web.isgd(link)
     except (web.ShortenError, http.HTTPError):
         return link
-

@@ -116,7 +116,7 @@ def kiss(inp, nick=None):
     if not inp: inp = nick
     return '(づ｡◕‿‿◕｡)づ\x02\x034。。・゜゜・。。・゜❤ {} ❤\x03\x02 '.format(inp).decode('UTF-8')
 
-    
+
 
 @hook.regex(r'^\[(.*)\]$')
 @hook.command(autohelp=False)
@@ -170,13 +170,13 @@ def sudoku(inp, conn=None, chan=None, nick=None, say=None):
 @hook.command("storyofrincewindscat", autohelp=False)
 @hook.command(channeladminonly=True, autohelp=False)
 def storyofpomfface(inp, reply=None):
-   reply(':O C==3')
-   reply(':OC==3')
-   reply(':C==3')
-   reply(':C=3')
-   reply(':C3')
-   reply(':3')
-   return
+    reply(':O C==3')
+    reply(':OC==3')
+    reply(':C==3')
+    reply(':C=3')
+    reply(':C3')
+    reply(':3')
+    return
 
 
 @hook.regex(r'^(same)$')
@@ -311,12 +311,12 @@ def room(inp, conn=None):
     letters = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
     users = inp.split()
     channel = "#rm-"
-       
+
     for i in range(1,6):
         channel = channel + random.choice(letters)
 
     conn.send("JOIN " + channel)
-    
+
     for user in users:
         conn.send("INVITE " + user + " " + channel)
 

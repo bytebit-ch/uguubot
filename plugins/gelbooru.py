@@ -39,7 +39,7 @@ def gelbooru(inp, reply=None):
     if len(gelbooru_cache) == 0: return "No Results"
 
     id, score, url, rating, tags = gelbooru_cache.pop()
-    
+
     if rating is 'e': rating = "\x02\x034NSFW\x03\x02"
     elif rating is 'q': rating = "\x02\x037Questionable\x03\x02"
     elif rating is 's': rating = "\x02\x033Safe\x03\x02"

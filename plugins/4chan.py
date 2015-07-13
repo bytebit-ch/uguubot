@@ -39,7 +39,7 @@ def get_title(url):
         post = soup.find('div', {'id': postid})
     else:
         post = soup.find('div', {'class': 'opContainer'})
-    
+
     comment = http.process_text(post.find('blockquote', {'class': 'postMessage'}).renderContents().strip())
     return "{} - {}".format(url, comment) #
 
@@ -159,7 +159,7 @@ def board(inp):
             t = Thread(None, target=search_thread, args=(results_deque, thread["no"], search_specifics))
             t.start()
             thread_pool.append(t)
-    
+
     for _thread in thread_pool:
         if _thread.is_alive():
             _thread.join(float(thread_join_timeout_seconds))

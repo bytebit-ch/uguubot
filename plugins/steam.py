@@ -38,7 +38,7 @@ def steamsearch(inp):
     result = soup.find('a', {'class': 'search_result_row'})
     return get_steam_info(result['href']) + " - " + result['href']
 
-    
+
 
 import csv
 import io

@@ -211,9 +211,7 @@ def heartbleed(inp, reply=None):
     "bash <id> -- Gets a random quote from Bash.org, or returns a specific id."
     global host_status
     host_status = {}
-        
+
     scan_host(inp)
 
     return print_summary()
-
-

@@ -36,7 +36,7 @@ exchanges = {
 @hook.command(autohelp=False)
 def bitcoin(inp):
     """bitcoin <exchange | list> -- Gets current exchange rate for bitcoins from several exchanges, default is MtGox. Supports MtGox, Blockchain, Bitpay, Coinbase and BitStamp."""
-    
+
     inp = inp.lower()
 
     if inp:
@@ -85,7 +85,7 @@ def doge(inp, say=None):
     }
     except:
         return 'Error: Doge is worthless.'
-        
+
     result = float(bitcoin_price) * float(current['buy'])
     dollar_result = 1 / float(result)
     lotsadoge = 10000 * result
