@@ -1,8 +1,8 @@
 import re
 import socket
 import time
-import thread
-import Queue
+import _thread
+import queue
 
 from ssl import wrap_socket, CERT_NONE, CERT_REQUIRED, SSLError
 
@@ -19,7 +19,7 @@ def decode(txt):
 def censor(text):
     replacement = '[censored]'
     if 'censored_strings' in bot.config:
-        words = map(re.escape, bot.config['censored_strings'])
+        words = list(map(re.escape, bot.config['censored_strings']))
         regex = re.compile('(%s)' % "|".join(words))
         text = regex.sub(replacement, text)
     return text
@@ -31,8 +31,8 @@ class crlf_tcp(object):
     def __init__(self, host, port, timeout=300):
         self.ibuffer = ""
         self.obuffer = ""
-        self.oqueue = Queue.Queue()  # lines to be sent out
-        self.iqueue = Queue.Queue()  # lines that were received
+        self.oqueue = queue.Queue()  # lines to be sent out
+        self.iqueue = queue.Queue()  # lines that were received
         self.socket = self.create_socket()
         self.host = host
         self.port = port
@@ -43,8 +43,8 @@ class crlf_tcp(object):
 
     def run(self):
         self.socket.connect((self.host, self.port))
-        thread.start_new_thread(self.recv_loop, ())
-        thread.start_new_thread(self.send_loop, ())
+        _thread.start_new_thread(self.recv_loop, ())
+        _thread.start_new_thread(self.send_loop, ())
 
     def recv_from_socket(self, nbytes):
         return self.socket.recv(nbytes)
@@ -85,7 +85,7 @@ class crlf_tcp(object):
     def send_loop(self):
         while True:
             line = self.oqueue.get().splitlines()[0][:500]
-            print ">>> %r" % line
+            print(">>> %r" % line)
             self.obuffer += line.encode('utf-8', 'replace') + '\r\n'
             while self.obuffer:
                 sent = self.socket.send(self.obuffer)
@@ -131,19 +131,19 @@ class IRC(object):
         self.port = port
         self.nick = nick
 
-        self.out = Queue.Queue()  # responses from the server are placed here
+        self.out = queue.Queue()  # responses from the server are placed here
         # format: [rawline, prefix, command, params,
         # nick, user, host, paramlist, msg]
         self.connect()
 
-        thread.start_new_thread(self.parse_loop, ())
+        _thread.start_new_thread(self.parse_loop, ())
 
     def create_connection(self):
         return crlf_tcp(self.server, self.port)
 
     def connect(self):
         self.conn = self.create_connection()
-        thread.start_new_thread(self.conn.run, ())
+        _thread.start_new_thread(self.conn.run, ())
         self.set_pass(self.conf.get('server_password'))
         self.set_nick(self.nick)
         self.cmd("USER",
@@ -204,7 +204,7 @@ class IRC(object):
 
     def ctcp(self, target, ctcp_type, text):
         """ makes the bot send a PRIVMSG CTCP to a target """
-        out = u"\x01{} {}\x01".format(ctcp_type, text)
+        out = "\x01{} {}\x01".format(ctcp_type, text)
         self.cmd("PRIVMSG", [target, out])
 
     def cmd(self, command, params=None):
