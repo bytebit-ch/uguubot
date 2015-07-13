@@ -59,7 +59,7 @@ def send_phrase(inp,attack,nick,conn,me,notice):
     #else: 
     phrase = random.choice(attack)
     # act out the message
-    me(phrase.format(**values).decode('utf-8', "ignore"))
+    me(phrase.format(**values))
     return
 
 
@@ -104,7 +104,7 @@ def yiff(inp, me=None, nick=None, conn=None, notice=None):
 def lewd(inp, me=None, nick=None, conn=None, notice=None):
     """lewd <user> -- lewd <user>."""
     if len(inp) == 0:
-        return 'ヽ(◔ ◡ ◔)ノ.･ﾟ*｡･+☆LEWD☆'.decode('UTF-8')
+        return 'ヽ(◔ ◡ ◔)ノ.･ﾟ*｡･+☆LEWD☆'
     else:    
         send_phrase(inp,lewds,nick,conn,me,notice)
     return
@@ -221,7 +221,7 @@ def process_text(inp,name,notice):
         if num > linecount or num < 0: 
             return "Theres nothing there baka"
 
-        reply='\x02[{}/{}]\x02 {}'.format(num+1,linecount+1,lines[num]).decode('utf-8')
+        reply='\x02[{}/{}]\x02 {}'.format(num+1,linecount+1,lines[num])
 
         file.close()
         lines = []

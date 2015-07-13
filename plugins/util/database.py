@@ -39,7 +39,7 @@ def get(db,table,field,matchfield,matchvalue):
 def set(db, table, field, value, matchfield, matchvalue):
     init(db)
     if value is None: value = ''
-    matchvalue = matchvalue.decode('utf-8').lower()
+    matchvalue = matchvalue.lower()
     if type(value) is str: value = value.replace("'","").replace('\"', "")
 
     try:

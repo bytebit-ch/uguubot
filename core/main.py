@@ -72,7 +72,7 @@ def run(func, input):
         out = func(input.inp)
     if out is not None:
         try:
-            input.reply(out.decode('utf8'))
+            input.reply(out)
         except UnicodeEncodeError:
             input.reply(str(out))
 
