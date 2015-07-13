@@ -1,2 +1,4 @@
 beautifulsoup4==4.4.0
 lxml==3.3.6
+myql==1.2.4
+pytz==2015.4

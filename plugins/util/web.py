@@ -4,14 +4,12 @@ from . import http
 from . import urlnorm
 import json
 import urllib.request, urllib.parse, urllib.error
-import yql
+import myql
 
 short_url = "http://is.gd/create.php"
 paste_url = "http://hastebin.com"
-yql_env = "http://datatables.org/alltables.env"
 
-YQL = yql.Public()
-
+YQL = myql.MYQL()
 
 class ShortenError(Exception):
     def __init__(self, code, text):
