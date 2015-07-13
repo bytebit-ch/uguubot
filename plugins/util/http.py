@@ -24,7 +24,7 @@ jar = http.cookiejar.CookieJar()
 
 
 def get(*args, **kwargs):
-    return open(*args, **kwargs).read()
+    return open(*args, **kwargs).read().decode("utf-8")
 
 
 def get_url(*args, **kwargs):

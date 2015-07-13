@@ -24,7 +24,7 @@ def convert(inp,conn=None,chan=None):
     url = "http://www.google.com/search?q=convert+%s&num=100&hl=en&start=0" % (urllib.parse.quote_plus(inp))
     request = urllib.request.Request(url, None, headers)
     page = urllib.request.urlopen(request).read()
-    soup = BeautifulSoup(page)
+    soup = BeautifulSoup(page, "lxml")
     #soup = soup.find('div', attrs={'id': re.compile('ires')})
     is_currency = soup.find('li', attrs={'class': re.compile('currency')})
     if is_currency:
