@@ -74,7 +74,7 @@ def greeting(inp, nick=None, conn=None, chan=None,db=None, notice=None):
             database.set(db,'users','greeting','','nick',nick)
             notice("Deleted your greeting.")
         else:
-            database.set(db,'users','greeting','{} '.format(inp.strip().replace("'","").encode('utf8')),'nick',nick)
+            database.set(db,'users','greeting','{} '.format(inp.strip().replace("'","")),'nick',nick)
             notice("Saved your greeting.")
         return
     except: return "Uwaaahh~~?"
