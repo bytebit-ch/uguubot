@@ -188,7 +188,7 @@ import urllib.request, urllib.parse, urllib.error
 import urllib.request, urllib.error, urllib.parse
 import requests
 from lxml import html
-import md5
+import hashlib
 
 user_agent = 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0'
 # cookies = dict(cookies_are='working')
