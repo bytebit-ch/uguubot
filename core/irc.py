@@ -29,8 +29,8 @@ class crlf_tcp(object):
     "Handles tcp connections that consist of utf-8 lines ending with crlf"
 
     def __init__(self, host, port, timeout=300):
-        self.ibuffer = ""
-        self.obuffer = ""
+        self.ibuffer = b""
+        self.obuffer = b""
         self.oqueue = queue.Queue()  # lines to be sent out
         self.iqueue = queue.Queue()  # lines that were received
         self.socket = self.create_socket()
@@ -78,15 +78,15 @@ class crlf_tcp(object):
                     return
                 continue
 
-            while '\r\n' in self.ibuffer:
-                line, self.ibuffer = self.ibuffer.split('\r\n', 1)
+            while b'\r\n' in self.ibuffer:
+                line, self.ibuffer = self.ibuffer.split(b'\r\n', 1)
                 self.iqueue.put(decode(line))
 
     def send_loop(self):
         while True:
             line = self.oqueue.get().splitlines()[0][:500]
             print(">>> %r" % line)
-            self.obuffer += line.encode('utf-8', 'replace') + '\r\n'
+            self.obuffer += (line + '\r\n').encode('utf-8', 'replace')
             while self.obuffer:
                 sent = self.socket.send(self.obuffer)
                 self.obuffer = self.obuffer[sent:]
