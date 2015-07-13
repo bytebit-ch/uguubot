@@ -47,6 +47,23 @@ def haste(text, ext='txt'):
     return ("%s/%s.%s" % (paste_url, data['key'], ext))
 
 
+class YqlResult:
+    def __init__(self, obj):
+        self.obj = obj
+
+    def one(self):
+        keys = list(self.obj["query"]["results"].keys())
+        if len(keys) != 1:
+            return {}
+
+        return self.obj["query"]["results"][keys[0]]
+
+
 def query(query, params={}):
     """ runs a YQL query and returns the results """
-    return YQL.execute(query, params, env=yql_env)
+    for k, v in params.items():
+        query = query.replace("@" + k, "'" + v + "'")
+
+    print(query)
+
+    return YqlResult(YQL.rawQuery(query).json())
